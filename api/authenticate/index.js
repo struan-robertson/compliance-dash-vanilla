@@ -14,7 +14,10 @@ module.exports = async function (context, req, passwordQuery) {
             .input('username', sql.VarChar(255), username)
             .query('SELECT [pass], [user_id], [user_role_name] FROM [dbo].[user] FULL OUTER JOIN [dbo].[user_role] ON [dbo].[user].[role_id] = [dbo].[user_role].[user_role_id] WHERE [user_name] = @username')
 
+        context.log(req.body);
+
         var hashedPW = passwordQuery.recordset[0].pass;
+
         var plaintextPW = req.body.password;
 
         //not working with online bcrypt site, might have just got password wrong
