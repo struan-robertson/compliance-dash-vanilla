@@ -11,9 +11,9 @@ https://victorious-wave-0b2484903.2.azurestaticapps.net/
 > Requires NPM for NodeJs packages used in the javascript functions for the backend, however front end is vanilla javascript and so does not require npm
 
 ### Start local dev server
-''' bash
+''bash
 swa start src --api-location api
-'''
+''
 
 ## Documentation
 
