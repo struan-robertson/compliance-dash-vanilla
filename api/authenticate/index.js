@@ -4,14 +4,6 @@ const randomstring = require('randomstring');
 const sql = require('mssql');
 
 module.exports = async function (context, req) {
-   
-    context.res = {
-        // status: 200, /* Defaults to 200 */
-        mimetype: "application/json",
-        body: {
-            test: "test123"
-        }
-    };
 
     try {
         var username = req.body.username;
