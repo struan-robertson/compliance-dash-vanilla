@@ -9,6 +9,6 @@
     "@playwright/test": "^1.22.2"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": "^16.0.0"
   }
 }
