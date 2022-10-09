@@ -102,6 +102,7 @@ card-footer,
     text-align: center;
 }
 
+
 body {font-family: Arial, Helvetica, sans-serif;}
     * {box-sizing: border-box;}
     
@@ -135,6 +136,16 @@ body {font-family: Arial, Helvetica, sans-serif;}
       padding: 20px;
       
     }
+    .searchbar {
+        background-color: #4654e100;
+        width: 300px;
+        height: 44px;
+        float: right;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
 
     div.a {
         text-align: center;
