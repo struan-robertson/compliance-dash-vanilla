@@ -3,12 +3,16 @@ const bcrypt = require('bcrypt');
 const randomstring = require('randomstring');
 const sql = require('mssql');
 
+const dbConnectionString = process.env["TEST_DATABASE_CONNECTION_STRING"];
+const hmacSecret = process.env["HMAC_SECRET"];
+
 module.exports = async function (context, req) {
+
 
     try {
         var username = req.body.username;
 
-        let pool = await sql.connect(process.env["TEST_DATABASE_CONNECTION_STRING"]);
+        let pool = await sql.connect(dbConnectionString);
 
         let passwordQuery = await pool.request()
             .input('username', sql.VarChar(255), username)
@@ -76,7 +80,7 @@ module.exports = async function (context, req) {
             }
 
             //secret must be set in local.settigns.json
-            var jwToken = jwt.sign(JWTpayload, process.env["HMAC_SECRET"], { expiresIn: 60 * 10 }) //10 minutes
+            var jwToken = jwt.sign(JWTpayload, hmacSecret, { expiresIn: 60 * 10 }) //10 minutes
 
             context.res = {
                 // status: 200, /* Defaults to 200 */
