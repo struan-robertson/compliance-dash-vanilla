@@ -7,7 +7,7 @@
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
-    "bcrypt": "^5.1.0",
+    "bcryptjs": "^2.4.3",
     "cookie": "^0.5.0",
     "jsonwebtoken": "^8.5.1",
     "mssql": "^9.0.1",
