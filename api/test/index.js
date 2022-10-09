@@ -1,4 +1,4 @@
-const sql = require('mssql');
+const sql = require('tedious');
 
 module.exports = async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
