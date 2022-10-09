@@ -60,7 +60,7 @@ function buildSummaryTable(array) {
     var summaryTable = document.getElementById('ruleSummary')
     for (var i=0; i <array.length;i++ )
     {
-        var row = `<tr><td>${array[i].rule_id}</td><td>${array[i].rule_name}</td><td>${array[i].rule_description}</td></tr>`
+        var row = `<tr><td>${array[i].rule_id}</td><td>${array[i].rule_name}</td><td>${array[i].rule_description}</td><td>${array[i].num}</td></tr>`
         summaryTable.innerHTML+=row
     }
     
