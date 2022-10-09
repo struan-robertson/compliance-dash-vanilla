@@ -16,9 +16,9 @@ module.exports = async function (context, req) {
 
         let pool = await sql.connect(dbConnectionString);
 
-        let passwordQuery = await pool.request()
-            .input('username', sql.VarChar(255), username)
-            .query('SELECT [pass], [user_id], [user_role_name] FROM [dbo].[user] FULL OUTER JOIN [dbo].[user_role] ON [dbo].[user].[role_id] = [dbo].[user_role].[user_role_id] WHERE [user_name] = @username')
+        // let passwordQuery = await pool.request()
+        //     .input('username', sql.VarChar(255), username)
+        //     .query('SELECT [pass], [user_id], [user_role_name] FROM [dbo].[user] FULL OUTER JOIN [dbo].[user_role] ON [dbo].[user].[role_id] = [dbo].[user_role].[user_role_id] WHERE [user_name] = @username')
     
     
     } catch (err)
