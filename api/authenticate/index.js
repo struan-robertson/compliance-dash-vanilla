@@ -14,7 +14,18 @@ module.exports = async function (context, req, passwordQuery) {
             .input('username', sql.VarChar(255), username)
             .query('SELECT [pass], [user_id], [user_role_name] FROM [dbo].[user] FULL OUTER JOIN [dbo].[user_role] ON [dbo].[user].[role_id] = [dbo].[user_role].[user_role_id] WHERE [user_name] = @username')
 
-        context.log(req.body);
+        //no account with that username found
+        if (passwordQuery.rowsAffected == 0)
+        {
+            context.res = {
+                // status: 200, /* Defaults to 200 */
+                mimetype: "application/json",
+                body: {
+                    success: false,
+                    message: "Incorrect Username"
+                }
+            };
+        }
 
         var hashedPW = passwordQuery.recordset[0].pass;
 
@@ -36,8 +47,6 @@ module.exports = async function (context, req, passwordQuery) {
             let deleteOldToken = await pool.request()
                 .input('user_id', sql.Int, user_id)
                 .query('DELETE FROM [dbo].[tokens] WHERE [user_id] = @user_id')
-
-            context.log(deleteOldToken);
 
             //ensure token is unique to avoid collisions
             while (true)
