@@ -11,28 +11,21 @@ module.exports = async function (context, req) {
     var dbConnectionString = "Server=tcp:team6ip.database.windows.net,1433;Database=t6ipTestDB;Uid=team6ipadmin;Pwd=tywpof-nusgyf-weSqe5;Encrypt=yes";
     var hmacSecret = "ABbfGnOMYGKhdfrGCREZEypuaIXmXksV";
 
-    try {
-        var username = req.body;
+   
+    var username = req.body;
 
-        //let pool = await sql.connect(dbConnectionString);
+    //let pool = await sql.connect(dbConnectionString);
 
-        // let passwordQuery = await pool.request()
-        //     .input('username', sql.VarChar(255), username)
-        //     .query('SELECT [pass], [user_id], [user_role_name] FROM [dbo].[user] FULL OUTER JOIN [dbo].[user_role] ON [dbo].[user].[role_id] = [dbo].[user_role].[user_role_id] WHERE [user_name] = @username')
+    // let passwordQuery = await pool.request()
+    //     .input('username', sql.VarChar(255), username)
+    //     .query('SELECT [pass], [user_id], [user_role_name] FROM [dbo].[user] FULL OUTER JOIN [dbo].[user_role] ON [dbo].[user].[role_id] = [dbo].[user_role].[user_role_id] WHERE [user_name] = @username')
+
+    context.res = {
+        // status: 200, /* Defaults to 200 */
+        body: username
+    };
+
     
-        context.res = {
-            // status: 200, /* Defaults to 200 */
-            body: username
-        };
-    
-    } catch (err)
-    {
-        context.res = {
-            // status: 200, /* Defaults to 200 */
-            body: err
-        };
-    }
-
     // try {
     //     var username = req.body.username;
 
