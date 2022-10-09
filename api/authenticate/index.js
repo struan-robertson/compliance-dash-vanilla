@@ -3,11 +3,13 @@ const bcrypt = require('bcrypt');
 const randomstring = require('randomstring');
 const sql = require('mssql');
 
-const dbConnectionString = process.env["TEST_DATABASE_CONNECTION_STRING"];
-const hmacSecret = process.env["HMAC_SECRET"];
+//const dbConnectionString = process.env["TEST_DATABASE_CONNECTION_STRING"];
+//const hmacSecret = process.env["HMAC_SECRET"];
 
 module.exports = async function (context, req) {
 
+    var dbConnectionString = "Server=tcp:team6ip.database.windows.net,1433;Database=t6ipTestDB;Uid=team6ipadmin;Pwd=tywpof-nusgyf-weSqe5;Encrypt=yes";
+    var hmacSecret = "ABbfGnOMYGKhdfrGCREZEypuaIXmXksV";
 
     try {
         var username = req.body.username;
