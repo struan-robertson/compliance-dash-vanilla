@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
-//const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 const randomstring = require('randomstring');
 
-const sql = require('mssql');
+//const sql = require('mssql');
 
 //const dbConnectionString = process.env["TEST_DATABASE_CONNECTION_STRING"];
 //const hmacSecret = process.env["HMAC_SECRET"];
