@@ -9,7 +9,7 @@ module.exports = async function (context, req) {
         // status: 200, /* Defaults to 200 */
         mimetype: "application/json",
         body: {
-            test: process.env["TEST_DATABASE_CONNECTION_STRING"]
+            test: "test123"
         }
     };
 
