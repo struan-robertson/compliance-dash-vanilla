@@ -3,8 +3,16 @@ const bcrypt = require('bcrypt');
 const randomstring = require('randomstring');
 const sql = require('mssql');
 
-module.exports = async function (context, req, passwordQuery) {
+module.exports = async function (context, req) {
    
+    context.res = {
+        // status: 200, /* Defaults to 200 */
+        mimetype: "application/json",
+        body: {
+            test: process.env["TEST_DATABASE_CONNECTION_STRING"]
+        }
+    };
+
     try {
         var username = req.body.username;
 
