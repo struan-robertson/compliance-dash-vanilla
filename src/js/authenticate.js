@@ -16,13 +16,17 @@ function login(username, password)
     {
         var data = response.data;
 
-        //TODO: implement failed login
         if (data.success)
         {
             //store jwt in local storage
             localStorage.setItem("jwt", data.data.idToken);
 
-            console.log(data.data.idToken);
+
+            window.location = '/';
+        } else 
+        {
+            console.log(data.message)
+            //handle incorrect login
         }
     })
     .catch(function (error) 
