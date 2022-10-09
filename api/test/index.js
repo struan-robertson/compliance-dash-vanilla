@@ -7,7 +7,7 @@ module.exports = async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
 
 
-    const test = "AzureWebJobsStorage: " + process.env["BCRYPT_SALT_ROUNDS"];
+    const test = process.env["BCRYPT_SALT_ROUNDS"];
 
     context.res = {
         // status: 200, /* Defaults to 200 */
