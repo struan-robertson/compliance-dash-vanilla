@@ -12,7 +12,7 @@ module.exports = async function (context, req) {
     var hmacSecret = "ABbfGnOMYGKhdfrGCREZEypuaIXmXksV";
 
     try {
-        var username = req.body.username;
+        var username = req.body;
 
         //let pool = await sql.connect(dbConnectionString);
 
