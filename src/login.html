@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <title>Login</title>
-</head>
-
-<body>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="js/authenticate.js"></script>
-  <script src="js/pages/login.js"></script>
-
-  <main>
-    <h1>Login</h1>
+<html lan ="en" and dir = "ltr">
+  <head>
+     <meta  charset="utf-8">
+     <title>Compliance Website</title>
+     <link rel = "stylesheet" href="styles.css">
+     <script src = "login.js"></script>
+  </head>
+  <body>
+    <video playsinline autoplay muted loop poster="bri-sequence-04-web-final.mp4">
+        <source src = "bri-sequence-04-web-final.webm" type ="video/webm">
+        <source src = "bri-sequence-04-web-final.mp4" type ="video/mp4">
+    </video>
     
-    <form id="loginForm">
-        <label for="uname">Username:</label><br>
-        <input type="text" id="uname" name="uname"><br>
-        <label for="pass">Password:</label><br>
-        <input type="password" name="pass" id="pass"><br>
-        <input type="button" onclick="loginForm()" value="Login">
+    <form class = "company" action ="login.html" method="POST">
+        <h1> brightsolid</h1>
     </form>
-  </main>
-</body>
+    <form class ="box" action = "login.html" method="POST">
+        <h1> Login</h1>
+
+        <input type="text" name="" placeholder="Enter Username" id="username"> 
+        <input type="password" name="" placeholder="Enter Password" id="password">
+        <input type="submit" name="" value="Login" onclick="validate()">
+
+    </form>
+
+  </body>
 
 </html>

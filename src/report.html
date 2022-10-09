@@ -1,0 +1,108 @@
+  <!DOCTYPE html>
+  <html>
+  <head>
+  	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  	<title>Report</title>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link href="styles.css" rel="stylesheet" />
+    <style>
+     
+
+    </style>
+
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Brightsolid Compliance Dashboard</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Compliance Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Compliance Report</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="history.html">Exception History</a>
+            </li>
+            
+          </ul>
+          
+
+          <a href="login.html" class="btn btn-outline-light" type="submit">Logout</a>
+          
+        </div>
+      </div>
+    </nav>
+    
+    <main>
+      <div class="records" id="records">
+     <table id = "records">
+      <thead>
+        <tr>
+          <th scope="col">rule_id</th>
+          <th scope="col">Rule</th>
+          <th scope="col">Compliance Status</th>
+          <th scope="col">Next review date</th>
+          <th scope="col">Justification</th>
+          <th scope="col">Name of Compliance Manager</th>
+          <th scope="col">Update exception link</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>ebs-detect-unencrypted-volume</td>
+          <td>Compliant</td>
+          <td>01/03/2023</td>
+          <td></td>
+          <td>Joe Bloggs</td>
+          <td>
+            <a href="form.html" class="btn btn-primary">Update exception</a>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>s3-detect-unencrypted-bucket</td>
+          <td>Non-compliant</td>
+          <td>31/12/22</td>
+          <td>need to test that it doesn't work</td>
+          <td>The boss</td>
+           <td>
+            <a href="form.html" class="btn btn-primary">Update exception</a>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+
+
+
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+  <script>
+    $('.table-responsive').on('show.bs.dropdown', function () {
+     $('.table-responsive').css( "overflow", "inherit" );
+   });
+
+    $('.table-responsive').on('hide.bs.dropdown', function () {
+     $('.table-responsive').css( "overflow", "auto" );
+   })
+ </script>
+
+</body>
+</html>
