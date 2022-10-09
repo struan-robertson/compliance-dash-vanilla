@@ -8,7 +8,9 @@ module.exports = async function (context, req, res) {
     try     {
 
         let pool = await sql.connect('Server=localhost,1433;Database=testdatabase;User Id=sa;Password=Pa55w0rd;Encrypt=false');
-        let query = 'select [rule].rule_id, rule_name, rule_description from [rule]';
+        let query = 'select A.[rule_id],A.[rule_name], A.[rule_description],B.num from [rule] A '+ 
+        'inner join (select non_compliance.rule_id, count(*) as num from non_compliance group by rule_id) B ' +
+        'on A.[rule_id] = B.rule_id';
         
         let count = await pool.request()
             .query(query)
