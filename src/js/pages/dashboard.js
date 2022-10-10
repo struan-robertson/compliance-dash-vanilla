@@ -1,8 +1,16 @@
 var complianceArray;
 
+docReady(function() {
+   
+    checkTokenAge();
+
+    axios.post('/api/complianceException', { jwt: window.localStorage.jwt })
+
+});
+
 $(document).ready(function() {
 
-    tokenExpired();
+    checkTokenAge();
 
     
 
