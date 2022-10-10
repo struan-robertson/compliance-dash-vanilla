@@ -36,7 +36,6 @@ module.exports = async function (context, req, res) {
         var justification= req.body.justification;
         var nextReview= req.body.nextReview;
 
-        console.log(nextReview);
         
         let pool = await sql.connect(dbConnectionString);
         let statement = "INSERT INTO exception (customer_id, rule_id, last_updated_by, exception_value, justification, review_date, last_updated)"+ 
@@ -46,10 +45,6 @@ module.exports = async function (context, req, res) {
             .query(statement)
         
         
-        // const result = await sql.query`select count(*) as count  from [resource]`;
-        console.dir('Queried database with query: ' + statement)
-        console.dir('Result:')
-        console.dir(count)
         context.res = {
             // status: 200, /* Defaults to 200 */
             mimetype: "application/json",

@@ -15,6 +15,7 @@ module.exports = async function (context, req, res) {
 
             var decoded = jwt.verify(token, hmacSecret);
 
+            
         } catch(err) {
             //invalid token
 
@@ -28,6 +29,8 @@ module.exports = async function (context, req, res) {
                     }
                 }
             };
+
+            return;
         }
 
         let pool = await sql.connect(dbConnectionString);
@@ -38,16 +41,15 @@ module.exports = async function (context, req, res) {
         let count = await pool.request()
             .query(query)
         
+        let result = count.recordsets;
+        
         // const result = await sql.query`select count(*) as count  from [resource]`;
-        console.dir('Queried database with query: ' + query)
-        console.dir('Result:')
-        console.dir(count)
         context.res = {
             // status: 200, /* Defaults to 200 */
             mimetype: "application/json",
             body: {
                 success: true,
-                message: count
+                message: result
             }
         };
 

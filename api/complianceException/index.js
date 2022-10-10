@@ -30,6 +30,8 @@ module.exports = async function (context, req, res) {
                     }
                 }
             };
+
+            return;
         }
 
         let pool = await sql.connect(dbConnectionString);
