@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Vanilla JavaScript App</title>
+</head>
+
+<body >
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="js/authenticate.js"></script>
+  <script type="text/javascript" src="js/query.js"></script>
+  <script type="text/javascript" src="js/post.js"></script>
+
+  <main>
+    <h1>Query Testing</h1>
+    
+      <h2>Query Values from tables</h2>
+
+      <h3>Compliance Summary - Queried on Page Load</h3>
+      <div>
+      <input type="button" onclick="query()" value="Get Resource Count">
+        <table>
+          <tr>
+            <th>Compliant Resources</th>
+            <th>Non Compliant Resources</th>
+            <th>Total Resources</th>
+          </tr>
+            <tbody id="complianceTable"></tbody>
+        </table>
+    </div>
+
+    <h3>Rule Summary</h3>
+    <div>
+      <table>
+        <tr>
+          <th>Rule Id</th>
+          <th>Rule Name</th>
+          <th>Rule Description</th>
+          <th>No. of Non Compliant Resoures</th>
+          <!--th>Report</th> -->
+        </tr>
+          <tbody id="ruleSummary"></tbody>
+      </table>
+
+    </div>
+    
+      <h3>Write Values from form</h3>
+      <div>
+      <form id="exceptionForm" >
+        <label for="non_compliant">Select a rule:</label>
+        <select name="comnon_compliant" id="non_compliant">
+          
+        </select><br>
+        <label for="justification">Justification:</label>
+        <input type="text" name="justification" id="justification"><br>
+        <label for="nextReview">Next Review:</label><br>       
+        <input type="radio" id="html" name="review" value="3">
+        <label for="threeMonths">3 Months</label><br>
+        <input type="radio" id="css" name="review" value="6">
+        <label for="sixMonths">6 Months</label><br>
+        <input type="radio" id="html" name="review" > <label for="custom">Custom: </label>
+        <input type="date" id="custom" name="review" value="2022-10-10" min="2022-10-10" >
+        <br>
+
+        <input type="button" value="Submit" onclick="insertNewException()">
+    </form>
+    <br>
+    <p id="submitstatus">Submission Status: </p>
+    </div>
+
+
+    
+  </main>
+</body>
+
+<script>window.onload=getComplianceSummary()</script>
+<script>window.onload=getRuleSummary()</script>
+</html>
