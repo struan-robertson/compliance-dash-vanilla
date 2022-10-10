@@ -1,6 +1,5 @@
 
 
-
 function getComplianceSummary() {    
     tokenExpired();
 
@@ -71,6 +70,42 @@ function buildSummaryTable(array) {
         summaryTable.innerHTML+=row
     }
     
+}
+
+function getAuditSummary() {
+    // tokenExpired();
+
+    //post required because cannot send body with get requests in xmr for some reason, and sending in url is insecure as logged by server
+    axios.post('/api/auditHistory', { jwt: window.localStorage.getItem("jwt") })
+    .then(function (response) 
+    {
+        console.log('response from api:')
+        var array;
+        console.log(response);
+        if (response.data.success)
+        {
+            console.log('success');            
+
+            //TODO: parse server side so client recieves less info
+            console.log(response.data.message.recordset[0]);            
+            array = response.data.message.recordset;
+        }
+        
+        buildAuditSummaryTable(array);
+    })
+    .catch(function (error) 
+    {
+        console.log(error);
+    });
+}
+
+function buildAuditSummaryTable(array){
+    var summaryTable = document.getElementById('auditSummary')
+    for (var i=0;i<array.length;i++)
+    {
+        var row = `<tr><td>${array[i].exception_audit_id}</td><td>${array[i].exception_id}</td><td>${array[i].rule_id}</td><td>${array[i].old_justification}</td><td>${array[i].new_justification}</td><td>${array[i].old_review_date}</td><td>${array[i].new_review_date}</td></tr>`
+        summaryTable.innerHTML+=row
+    }
 }
 
 
