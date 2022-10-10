@@ -6,7 +6,30 @@ const hmacSecret = process.env["HMAC_SECRET"];
 
 module.exports = async function (context, req, res) {
    
+    
+
     try     {
+
+        //verify JWT token
+        try {
+
+            var decoded = jwt.verify(token, hmacSecret);
+            access = decoded.sub;
+
+        } catch(err) {
+            //invalid token
+
+            context.res = {
+                // status: 200, /* Defaults to 200 */
+                mimetype: "application/json",
+                body: {
+                    success: false,
+                    data: {
+                        message: "invalid token"
+                    }
+                }
+            };
+        }
 
         let pool = await sql.connect(dbConnectionString);
         let query = 'select (select count(resource_id) from resource) - (select count(resource_id) from non_compliance) as Compliant, (select count(resource_id) from non_compliance) as NonCompliant, (select count(resource_id) from [resource] )as total'

@@ -6,7 +6,28 @@ const hmacSecret = process.env["HMAC_SECRET"];
 
 module.exports = async function (context, req, res) {
    
-    try     {
+    try {
+
+        //verify JWT token
+        try {
+
+            var decoded = jwt.verify(token, hmacSecret);
+            access = decoded.sub;
+
+        } catch(err) {
+            //invalid token
+
+            context.res = {
+                // status: 200, /* Defaults to 200 */
+                mimetype: "application/json",
+                body: {
+                    success: false,
+                    data: {
+                        message: "invalid token"
+                    }
+                }
+            };
+        }
 
         let pool = await sql.connect(dbConnectionString);
         let query = 'select A.[rule_id],A.[rule_name], A.[rule_description],B.num from [rule] A '+ 

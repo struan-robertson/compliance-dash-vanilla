@@ -8,6 +8,27 @@ module.exports = async function (context, req, res) {
    
     try {
 
+        //verify JWT token
+        try {
+
+            var decoded = jwt.verify(token, hmacSecret);
+            access = decoded.sub;
+
+        } catch(err) {
+            //invalid token
+
+            context.res = {
+                // status: 200, /* Defaults to 200 */
+                mimetype: "application/json",
+                body: {
+                    success: false,
+                    data: {
+                        message: "invalid token"
+                    }
+                }
+            };
+        }
+
         var rule= req.body.resource;
         var justification= req.body.justification;
         var nextReview= req.body.nextReview;
