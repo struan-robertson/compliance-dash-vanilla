@@ -82,6 +82,7 @@ module.exports = async function (context, req) {
             },
             cookies: [ 
                 {
+                    //TODO: restore security cookies in production
                     name: "refresh",
                     value: newRefreshToken,
                     expires: expires,
