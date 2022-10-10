@@ -14,7 +14,10 @@
     
     </style>
 </head>
+	
 <body>
+	 <script type="text/javascript" src="js/query.js"></script>
+  <script type="text/javascript" src="js/post.js"></script>
   <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Brightsolid Compliance Dashboard</a>
@@ -43,37 +46,29 @@
   </nav>
   <main>
     <div class = "a">
-    <h3>
-    </h3>
+    <div>
+      <form id="exceptionForm" >
+        <label for="non_compliant">Select a rule:</label>
+        <select name="comnon_compliant" id="non_compliant">
+          
+        </select><br>
+        <label for="justification">Justification:</label>
+        <input type="text" name="justification" id="justification"><br>
+        <label for="nextReview">Next Review:</label><br>       
+        <input type="radio" id="html" name="review" value="3">
+        <label for="threeMonths">3 Months</label><br>
+        <input type="radio" id="css" name="review" value="6">
+        <label for="sixMonths">6 Months</label><br>
+        <input type="radio" id="html" name="review" > <label for="custom">Custom: </label>
+        <input type="date" id="custom" name="review" value="2022-10-10" min="2022-10-10" >
+        <br>
+
+        <input type="button" value="Submit" onclick="insertNewException()">
+    </form>
+    <br>
+    <p id="submitstatus">Submission Status: </p>
     </div>
-    <div class = "container">
-    <form>
-      <form>
-        
-        <div class="form-group row">
-          <label for="inputEmail3" class="col-sm-2 col-form-label">Justification for update</label>
-          <div class="col-sm-10">
-            <input type="email" class="form-control" id="inputEmail3" placeholder="Justification">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Name of Compliance Manager</label>
-          <div class="col-sm-10">
-            <input type="password" class="form-control" id="inputPassword3" placeholder="Name of Compliance Manager">
-          </div>
-        </div>
-        <fieldset class="form-group">
-          <div class="row">
-           <div class="form-row align-items-center">
-            <div class="col-auto my-1">
-              <label class="mr-sm-2" for="inlineFormCustomSelect">Set next review date</label>
-              <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                <option selected>Choose...</option>
-                <option value="1">3 months</option>
-                <option value="2">6 months</option>
-                <option value="3">12 months</option>
-              </select>
-            </div>
+
 
 
           </div>
@@ -94,4 +89,7 @@
 
 
 </body>
+<script>window.onload=getComplianceSummary()</script>
+<script>window.onload=getRuleSummary()</script>
+<script>window.onload=populateRules()</script>
 </html>
