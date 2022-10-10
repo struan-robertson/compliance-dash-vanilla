@@ -13,7 +13,7 @@ function getComplianceSummary() {
         console.log(response);
         if (response.data.success)
         {
-
+            //TODO: parse server side so client recieves less info
             console.log(response.data.message.recordset[0]);            
             array = response.data.message.recordset;
         }
@@ -48,6 +48,7 @@ function getRuleSummary() {
         console.log(response);
         if (response.data.success)
         {
+            //TODO: parse server side so client recieves less info
             console.log(response.data.message.recordset[0]);            
             array = response.data.message.recordset;
         }
