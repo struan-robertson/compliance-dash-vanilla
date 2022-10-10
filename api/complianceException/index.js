@@ -42,12 +42,15 @@ module.exports = async function (context, req, res) {
         console.dir('Queried database with query: ' + query)
         console.dir('Result:')
         console.dir(count)
+
+        var result = count.recordset[0];
+
         context.res = {
             // status: 200, /* Defaults to 200 */
             mimetype: "application/json",
             body: {
                 success: true,
-                message: count
+                message: result
             }
         };
 
