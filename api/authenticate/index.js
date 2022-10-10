@@ -95,10 +95,10 @@ module.exports = async function (context, req) {
                         name: "refresh",
                         value: refreshToken,
                         expires: expires,
-                        secure: true,
+                        //secure: true, //doesnt work for localhost
                         httpOnly: true,
-                        sameSite: "Strict",
-                        path: "/api/refresh-token"
+                        //sameSite: "Strict",
+                        //path: "/api/refresh-token"
                     }
                 ]
             };
