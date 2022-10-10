@@ -232,7 +232,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
             border-color: black;
         
         }
-        .box input[type = "button"]{
+        .box input[type = "submit"]{
         
             border: 0;
             background: none;
@@ -248,7 +248,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
             cursor: pointer;
         
         }
-        .box input[type = "button"]:hover{
+        .box input[type = "submit"]:hover{
             background: black;
         }
         
