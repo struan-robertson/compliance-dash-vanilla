@@ -1,6 +1,4 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const randomstring = require('randomstring');
 const sql = require('mssql');
 
 module.exports = async function (context, req, res) {
