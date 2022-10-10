@@ -1,11 +1,14 @@
 const jwt = require('jsonwebtoken');
 const sql = require('mssql');
 
+const dbConnectionString = process.env["TEST_DATABASE_CONNECTION_STRING"];
+const hmacSecret = process.env["HMAC_SECRET"];
+
 module.exports = async function (context, req, res) {
    
     try     {
 
-        let pool = await sql.connect('Server=localhost,1433;Database=testdatabase;User Id=sa;Password=Pa55w0rd;Encrypt=false');
+        let pool = await sql.connect(dbConnectionString);
         let query = 'select (select count(resource_id) from resource) - (select count(resource_id) from non_compliance) as Compliant, (select count(resource_id) from non_compliance) as NonCompliant, (select count(resource_id) from [resource] )as total'
         
         let count = await pool.request()

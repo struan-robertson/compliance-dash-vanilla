@@ -1,9 +1,12 @@
 const jwt = require('jsonwebtoken');
 const sql = require('mssql');
 
+const dbConnectionString = process.env["TEST_DATABASE_CONNECTION_STRING"];
+const hmacSecret = process.env["HMAC_SECRET"];
+
 module.exports = async function (context, req, res) {
    
-    try     {
+    try {
 
         var rule= req.body.resource;
         var justification= req.body.justification;
@@ -11,7 +14,7 @@ module.exports = async function (context, req, res) {
 
         console.log(nextReview);
         
-        let pool = await sql.connect('Server=localhost,1433;Database=testdatabase;User Id=sa;Password=Pa55w0rd;Encrypt=false');
+        let pool = await sql.connect(dbConnectionString);
         let statement = "INSERT INTO exception (customer_id, rule_id, last_updated_by, exception_value, justification, review_date, last_updated)"+ 
          "values (1,"+rule+",1,	'todo','"+justification+"','2022-12-12 16:23:59.759', '2022-09-12 17:25:36.091')";
 
