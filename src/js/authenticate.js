@@ -55,8 +55,6 @@ function refreshToken()
 
 function tokenExpired()
 {
-    console.log("token expired, refreshing")
-
     var jwt = localStorage.getItem("jwt");
 
     var payload = jwt.split(".")[1];

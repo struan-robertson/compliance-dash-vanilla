@@ -6,7 +6,9 @@ const hmacSecret = process.env["HMAC_SECRET"];
 
 module.exports = async function (context, req, res) {
    
-    
+    context.log(req.body);
+
+    var token = req.body.jwt;
 
     try     {
 

@@ -6,12 +6,16 @@ const hmacSecret = process.env["HMAC_SECRET"];
 
 module.exports = async function (context, req, res) {
    
+    var token = req.body.jwt;
+
     try {
 
         //verify JWT token
         try {
 
             var decoded = jwt.verify(token, hmacSecret);
+
+            context.log("valid token");
 
         } catch(err) {
             //invalid token

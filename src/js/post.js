@@ -7,7 +7,10 @@ function insertNewException() {
     console.log(justification);
     console.log(nextReview);
     
+    tokenExpired();
+
     axios.post('/api/newException',{
+        jwt: window.localStorage.getItem("jwt"),
         resource:resource,
         justification:justification,
         nextReview: nextReview

@@ -2,7 +2,9 @@
 
 
 function getComplianceSummary() {    
-    axios.get('/api/complianceException')
+    tokenExpired();
+
+    axios.post('/api/complianceException', { jwt: window.localStorage.jwt })
     .then(function (response) 
     {
         console.log('response from api:')
@@ -34,7 +36,9 @@ function buildComplianceTable(array) {
 
 
 function getRuleSummary() {
-    axios.get('/api/complianceSummary')
+    tokenExpired();
+
+    axios.post('/api/complianceSummary', { jwt: window.localStorage.getItem("jwt") })
     .then(function (response) 
     {
         console.log('response from api:')

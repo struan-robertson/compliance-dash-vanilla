@@ -10,11 +10,24 @@ module.exports = async function (context, req) {
     var cookies = cookie.parse(req.headers.cookie || '');
 
     var reqToken = cookies.refresh;
-    
+
+    if (reqToken == null)
+    {
+        context.res = {
+            body: {
+                success: false,
+                message: "missing refresh token"
+            }
+        }
+    }
+
     let getTokenQuery = await pool.request()
         .input('token', sql.VarChar(255), reqToken)
         .output('expires', sql.DateTime)
         .query('SELECT * FROM [dbo].[tokens] WHERE [token] = @token')
+
+
+    context.log(reqToken);
 
     var storedToken = getTokenQuery.recordset[0];
 
@@ -75,10 +88,10 @@ module.exports = async function (context, req) {
                     name: "refresh",
                     value: newRefreshToken,
                     expires: expires,
-                    secure: true,
+                    //secure: true,
                     httpOnly: true,
-                    sameSite: "Strict",
-                    path: "/api/refresh-token"
+                    //sameSite: "Strict",
+                    //path: "/api/refresh-token"
                 }
             ]
         };
