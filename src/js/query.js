@@ -4,6 +4,7 @@
 function getComplianceSummary() {    
     tokenExpired();
 
+    //post required because cannot send body with get requests in xmr for some reason, and sending in url is insecure as logged by server
     axios.post('/api/complianceException', { jwt: window.localStorage.jwt })
     .then(function (response) 
     {
@@ -38,6 +39,7 @@ function buildComplianceTable(array) {
 function getRuleSummary() {
     tokenExpired();
 
+    //post required because cannot send body with get requests in xmr for some reason, and sending in url is insecure as logged by server
     axios.post('/api/complianceSummary', { jwt: window.localStorage.getItem("jwt") })
     .then(function (response) 
     {
