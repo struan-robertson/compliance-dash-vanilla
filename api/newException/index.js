@@ -12,7 +12,6 @@ module.exports = async function (context, req, res) {
         try {
 
             var decoded = jwt.verify(token, hmacSecret);
-            access = decoded.sub;
 
         } catch(err) {
             //invalid token
