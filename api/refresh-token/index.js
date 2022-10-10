@@ -26,6 +26,17 @@ module.exports = async function (context, req) {
         .output('expires', sql.DateTime)
         .query('SELECT * FROM [dbo].[tokens] WHERE [token] = @token')
 
+    if (getTokenQuery.rowsAffected == 0)
+    {
+        context.res = {
+            body: {
+                success: false,
+                message: "invalid refresh token"
+            }
+        }
+    }
+    
+
     var storedToken = getTokenQuery.recordset[0];
 
     //if valid refresh token

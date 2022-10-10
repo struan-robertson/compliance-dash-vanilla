@@ -10,10 +10,12 @@
 			
 		</head>
 		<body>
+			<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.min.js"></script>
 			<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 			<script src="js/authenticate.js"></script>
 			<script type="text/javascript" src="js/query.js"></script>
  			<script type="text/javascript" src="js/post.js"></script>
+			<script src="js/pages/dashboard.js"></script>
 
 			<!-- start of Navbar-->
 			<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
@@ -143,25 +145,7 @@
 					}
 				});
 			</script>
-			<script>
-				$(document).ready(function() {
-					var ctx = $("#chart-line");
-					var myLineChart = new Chart(ctx, {
-						type: 'doughnut',
-						data: {
-							labels: ["Compliant", "Non-Compliant"],
-							datasets: [{
-								data: [200, 53],
-								backgroundColor: ["rgba(46, 204, 113, 1)", "rgba(196, 77, 86, 1)"]
-							}]
-						},
-						options: {
-							
-							
-						}
-					});
-				});
-			</script>
+	
 
 
 		</body>
