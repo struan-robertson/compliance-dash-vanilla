@@ -91,6 +91,12 @@ card-footer,
     font-size: 150%;
 }
 
+h4 {
+    color: green;
+    font-weight: bold;
+    font-size: 150%;
+}
+
 .padding {
     padding: 5rem
 }
