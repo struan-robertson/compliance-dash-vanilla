@@ -1,20 +1,37 @@
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const randomstring = require('randomstring');
 const sql = require('mssql');
 
-module.exports = async function (context, req, passwordQuery) {
-   
+const dbConnectionString = process.env["TEST_DATABASE_CONNECTION_STRING"];
+const hmacSecret = process.env["HMAC_SECRET"];
+
+module.exports = async function (context, req) {
+
     try {
         var username = req.body.username;
 
-        let pool = await sql.connect(process.env["TEST_DATABASE_CONNECTION_STRING"]);
+        let pool = await sql.connect(dbConnectionString);
 
         let passwordQuery = await pool.request()
             .input('username', sql.VarChar(255), username)
             .query('SELECT [pass], [user_id], [user_role_name] FROM [dbo].[user] FULL OUTER JOIN [dbo].[user_role] ON [dbo].[user].[role_id] = [dbo].[user_role].[user_role_id] WHERE [user_name] = @username')
 
+        //no account with that username found
+        if (passwordQuery.rowsAffected == 0)
+        {
+            context.res = {
+                // status: 200, /* Defaults to 200 */
+                mimetype: "application/json",
+                body: {
+                    success: false,
+                    message: "Incorrect Username"
+                }
+            };
+        }
+
         var hashedPW = passwordQuery.recordset[0].pass;
+
         var plaintextPW = req.body.password;
 
         //not working with online bcrypt site, might have just got password wrong
@@ -33,8 +50,6 @@ module.exports = async function (context, req, passwordQuery) {
             let deleteOldToken = await pool.request()
                 .input('user_id', sql.Int, user_id)
                 .query('DELETE FROM [dbo].[tokens] WHERE [user_id] = @user_id')
-
-            context.log(deleteOldToken);
 
             //ensure token is unique to avoid collisions
             while (true)
@@ -64,7 +79,7 @@ module.exports = async function (context, req, passwordQuery) {
             }
 
             //secret must be set in local.settigns.json
-            var jwToken = jwt.sign(JWTpayload, process.env["HMAC_SECRET"], { expiresIn: 60 * 10 }) //10 minutes
+            var jwToken = jwt.sign(JWTpayload, hmacSecret, { expiresIn: 60 * 10 }) //10 minutes
 
             context.res = {
                 // status: 200, /* Defaults to 200 */
@@ -124,4 +139,6 @@ module.exports = async function (context, req, passwordQuery) {
             }
         };
     })
+
+    
 }

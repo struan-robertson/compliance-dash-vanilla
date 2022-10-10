@@ -1,0 +1,91 @@
+body{
+
+margin:0;
+padding: 0;
+font-family: sans-serif;
+
+}
+video{
+    object-fit: cover;
+    width: 100vw;
+    height: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+}
+.box{
+    width:300px;
+    padding: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: rgba(0,0,0,0.4);
+    text-align: center;
+}
+.company{
+    width:300px;
+    padding: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: rgba(0,0,0,0.4);
+    text-align: center;
+}    
+.company h1{
+    color: lightseagreen;
+    font-size: 3em;
+    font-family: itc bauhaus;
+    text-transform: lowercase;
+    font-weight: 700;
+    text-align: center;
+    
+
+}
+.box h1{
+    color: white;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+.box input[type="text"], .box input[type="password"]{
+
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 3px solid black;
+    padding: 14px 10px;
+    width: 220px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25px; 
+}
+.box input[type="text"]:focus , .box input[type="password"]:focus{
+    width: 270px;
+    border-color: black;
+
+}
+.box input[type = "submit"]{
+
+    border: 0;
+    background: none;
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    border: 3px solid black;
+    padding: 15px 35px;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25px; 
+    cursor: pointer;
+
+}
+.box input[type = "submit"]:hover{
+    background: black;
+}
+
