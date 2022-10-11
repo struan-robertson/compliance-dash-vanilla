@@ -47,8 +47,10 @@ module.exports = async function (context, req) {
         var decoded = jwt.verify(reqJwt, process.env["HMAC_SECRET"], { ignoreExpiration: true });
 
         //although expired, the data provided is still known to be true as it is signed by us
+        //should probably change tho, beacuse if key was changed then all users would have to sign in again
         var user_id = decoded.sub;
         var user_role = decoded.role;
+        var customer = decoded.customer;
 
         //new refresh token, so that user never gets signed out whilst using app
         var newRefreshToken = randomstring.generate(255);
@@ -69,15 +71,17 @@ module.exports = async function (context, req) {
         var expires = new Date();
         expires.setDate(expires.getDate() + 1);
 
+        //TODO: cron job to delete old tokens
         let updateRefreshTokenQuery = await pool.request()
             .input('token', sql.VarChar(255), newRefreshToken)
             .input('expires', sql.DateTime, expires)
             .input('user_id', sql.Int, user_id)
-            .query('UPDATE [dbo].[tokens] SET [token] = @token, [expires] = @expires WHERE [user_id] = @user_id')
+            .query('INSERT INTO [dbo].[tokens] (token, expires, user_id) VALUES (@token, @expires, @user_id)')
 
         var JWTpayload = {
             "sub": user_id,
-            "role": user_role
+            "role": user_role,
+            "customer": customer
         }
         
         //secret must be set in local.settigns.json

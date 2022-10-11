@@ -63,7 +63,6 @@
 				<div class="container-fluid d-flex justify-content-left">
 					<div class="col-sm-6 col-md-6">
 						<div class="card">
-							<div class="card-header justify-content-center">Compliance Summary</div>
 							<div class="card-body">
 								<div class="chartjs-size-monitor"
 									style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
@@ -84,12 +83,7 @@
 					</div>
 					<div class="col-sm-6 col-md-6">
 						<div class="panel panel-default">
-							<div style="position:relative; top:10px; color:green; font-weight:bold; font-size:150%">
-								Trend Line
-							</div>
-							<canvas id="myChart" style="width:100%;max-width:600px;min-width:0;height:420px;"></canvas>
-
-
+							<canvas id="lineChart"></canvas>
 						</div>
 					</div>
 				</div>
@@ -126,36 +120,7 @@
 	</main>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'></script>
-	<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-
-	<script>
-		var xValues = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"];
-
-		new Chart("myChart", {
-			type: "line",
-			data: {
-				labels: xValues,
-				datasets: [{
-					data: [0, 40, 60, 10, 10, 10, 30, 20, 70, 24],
-					borderColor: "rgba(46, 204, 113, 1)",
-					fill: false
-				}, {
-					data: [16, 17, 10, 10, 20, 20, 40, 50, 60, 70],
-					borderColor: "rgba(196, 77, 86, 1)",
-					fill: false
-				}, {
-					data: [3, 7, 2, 5, 60, 4, 2, 1, 2, 10],
-					borderColor: "rgba(0, 0, 0, 1)",
-					fill: false
-				}]
-			},
-			options: {
-				legend: { display: false }
-			}
-		});
-	</script>
-
 
 
 </body>
