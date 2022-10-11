@@ -202,7 +202,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
         
         }
         .box h1{
-            color: white;
+            color: black;
             text-transform: uppercase;
             font-weight: 700;
         }
@@ -217,7 +217,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
             padding: 14px 10px;
             width: 220px;
             outline: none;
-            color: white;
+            color: black;
             border-radius: 24px;
             transition: 0.25px; 
         }
@@ -236,7 +236,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
             border: 3px solid black;
             padding: 15px 35px;
             outline: none;
-            color: white;
+            color: black
             border-radius: 24px;
             transition: 0.25px; 
             cursor: pointer;
