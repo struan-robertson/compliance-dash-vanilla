@@ -3,7 +3,7 @@ if (localStorage.getItem("jwt") == null && window.location.pathname != '/login.h
     window.location = '/login.html';
 }
 
-function login(username, password) {
+async function login(username, password) {
 
     axios.post('/api/authenticate',
         {
@@ -21,6 +21,31 @@ function login(username, password) {
             } else {
                 console.log(data.message)
                 //handle incorrect login
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+async function logout() {
+
+    //make sure we're not trying to logout with an expired token
+    await checkTokenAge();
+
+    axios.post('/api/logout',
+        {
+            jwt: localStorage.getItem("jwt")
+        })
+        .then(function (response) {
+            var data = response.data;
+
+            if (data.success) {
+                localStorage.removeItem("jwt");
+                window.location = '/login.html';
+            } else {
+                console.log(data.message)
+                //handle incorrect logout
             }
         })
         .catch(function (error) {
