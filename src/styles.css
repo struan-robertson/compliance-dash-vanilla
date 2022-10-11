@@ -236,7 +236,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
             border: 3px solid black;
             padding: 15px 35px;
             outline: none;
-            color: black;
+            color: red;
             border-radius: 24px;
             transition: 0.25px; 
             cursor: pointer;
