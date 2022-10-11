@@ -181,10 +181,10 @@ body {font-family: Arial, Helvetica, sans-serif;}
             text-align: center;
         }
         .company{
-            width:90px;
+            width:300px;
             padding: 30px;
             position: absolute;
-            top: 20%;
+            top: 10%;
             left: 50%;
             transform: translate(-50%,-50%);
             background: #ffffff00;;
