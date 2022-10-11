@@ -54,8 +54,6 @@ module.exports = async function (context, req, res) {
 
         let pool = await sql.connect(dbConnectionString);
 
-        context.log(customer);
-
         let getTrendQuery = await pool.request()
             .input('customer_id', sql.Int, customer)
             .query(`SELECT DATEADD(MONTH, DATEDIFF(MONTH, 0, complience_history.day), 0) AS month, AVG(complience_history.complient) AS complient, AVG(complience_history.non_complient) as non_complient 
@@ -66,8 +64,6 @@ module.exports = async function (context, req, res) {
         let result = getTrendQuery.recordset;
 
         const month = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-
-        console.log(getTrendQuery);
 
         for (let i=0; i<result.length; i++)
         {

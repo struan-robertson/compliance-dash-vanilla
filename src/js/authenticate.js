@@ -17,7 +17,6 @@ function login(username, password) {
                 //store jwt in local storage
                 localStorage.setItem("jwt", data.data.idToken);
 
-
                 window.location = '/';
             } else {
                 console.log(data.message)
@@ -38,8 +37,6 @@ function isTokenExpired() {
 
     var expires = JSON.parse(decoded).exp;
 
-    console.log(expires);
-
     // if expires time is less than current time then token has expired 
     if (expires < Math.floor(Date.now() / 1000))
         return true;
@@ -47,22 +44,25 @@ function isTokenExpired() {
     return false;
 }
 
-function checkTokenAge() {
+async function checkTokenAge() {
 
     var expired = isTokenExpired();
 
     if (expired == true) {
 
-        axios.post('/api/refresh-token',
+        await axios.post('/api/refresh-token',
             {
                 jwt: localStorage.getItem("jwt")
             })
             .then(function (response) {
                 var data = response.data;
 
-                //TODO: implemtnt expired refresh token
                 if (data.success) {
                     localStorage.setItem("jwt", data.data.idToken);
+                } else 
+                {
+                    localStorage.removeItem("jwt");
+                    window.location('/login.html');
                 }
             })
     }
