@@ -94,9 +94,9 @@
 		<!-- end of graphs-->
 		<!-- searchbar-->
 
-		<form class="searchbar" role="search">
-			<input type="search" id="query" name="q" placeholder="Search" aria-label="Search through site content">
-			<button>Search</button>
+		<form class="searchbar" >
+			<input id="query" placeholder="Search" aria-label="Search through site content">
+			<input type="button" name="" value="Search" onclick="search()">
 		</form>
 		<!-- end of searchbar-->
 
@@ -107,9 +107,9 @@
 					<table>
 						<thead>
 							<th id="complianceTableRuleID" onclick="orderSummaryTable('rule_id')">Rule Id ▼</th>
-							<th id="complianceTableRuleName" onclick="orderSummaryTable('rule_name')">Rule Name</th>
-							<th id="complianceTableRuleDescription" onclick="orderSummaryTable('rule_description')">Reason why rule is broken</th>
-							<th id="complianceTableOccurences" onclick="orderSummaryTable('occurences')">No. of Non Compliant Resoures</th>
+							<th id="complianceTableRuleName" onclick="orderSummaryTable('rule_name')">Rule Name  </th>
+							<th id="complianceTableRuleDescription" onclick="orderSummaryTable('rule_description')">Reason why rule is broken </th>
+							<th id="complianceTableOccurences" onclick="orderSummaryTable('occurences')">No. of Non Compliant Resoures </th>
 							<!--th>Report</th> -->
 						</thead>
 						<tbody id="ruleSummary"></tbody>

@@ -35,11 +35,17 @@ module.exports = async function (context, req, res) {
 
         var order = req.query.order;
         var direction = req.query.direction;
+        var search = req.query.search;
 
         if (order == null)
         {
             order = "rule_id";
             direction = "asc";
+        }
+
+        if (search == null)
+        {
+            search = "";
         }
 
         let pool = await sql.connect(dbConnectionString);
@@ -49,10 +55,12 @@ module.exports = async function (context, req, res) {
         ON [non_compliance].rule_id = [rule].rule_id 
         INNER JOIN [resource] 
         ON [non_compliance].resource_id = [resource].resource_id
-        WHERE [resource].account_id = ` + account + `
+        WHERE [resource].account_id = ` + account + ` AND [rule].[rule_name] LIKE '%` + search + `%' 
         GROUP BY [non_compliance].[rule_id], [rule].[rule_name], [rule].[rule_description]
         ORDER BY ` + order + ' ' + direction;
         
+        context.log(query);
+
         let count = await pool.request()
             .query(query)
         

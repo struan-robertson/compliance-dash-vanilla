@@ -51,6 +51,7 @@ module.exports = async function (context, req) {
         var user_id = decoded.sub;
         var user_role = decoded.role;
         var customer = decoded.customer;
+        var account = decoded.account;
 
         //new refresh token, so that user never gets signed out whilst using app
         var newRefreshToken = randomstring.generate(255);
@@ -81,7 +82,8 @@ module.exports = async function (context, req) {
         var JWTpayload = {
             "sub": user_id,
             "role": user_role,
-            "customer": customer
+            "customer": customer,
+            "account": account
         }
         
         //secret must be set in local.settigns.json

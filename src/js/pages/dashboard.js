@@ -2,6 +2,17 @@ docReady(async function () {
     //ensure we have a valid token before continuing 
     await checkTokenAge();
 
+    var search = sessionStorage.getItem("search");
+
+    if (search != null && search != "") {
+        let query = document.getElementById("query");
+
+        query.value = search;
+    } else {
+        sessionStorage.setItem("search", "");
+    }
+
+    //set env variables to defaults
     sessionStorage.setItem("order", "rule_id");
     sessionStorage.setItem("direction", "asc");
 
@@ -40,16 +51,13 @@ async function populateDoughnut() {
 }
 
 
-async function populateSummaryTable(search) {
+async function populateSummaryTable() {
 
     var order = sessionStorage.getItem("order");
     var direction = sessionStorage.getItem("direction")
+    var search = sessionStorage.getItem("search");
 
-    var url = '/api/complianceSummary?order=' + order + '&direction=' + direction;
-
-    if (search != null) {
-        url += '&search=' + search;
-    }
+    var url = '/api/complianceSummary?order=' + order + '&direction=' + direction + '&search=' + search;
 
     console.log(url);
 
@@ -81,7 +89,6 @@ async function populateSummaryTable(search) {
 
 function orderSummaryTable(order) {
 
-
     var storedOrder = sessionStorage.getItem("order");
     var storedDirection = sessionStorage.getItem("direction");
 
@@ -90,20 +97,22 @@ function orderSummaryTable(order) {
     var rule_description = document.getElementById("complianceTableRuleDescription");
     var occurences = document.getElementById("complianceTableOccurences");
 
-    console.log(storedOrder);
-
     switch (storedOrder) {
         case "rule_id":
             rule_id.innerText = rule_id.innerText.slice(0, rule_id.innerText.length - 1);
+            rule_id.innerText += " ";
             break;
         case "rule_name":
             rule_name.innerText = rule_name.innerText.slice(0, rule_name.innerText.length - 1);
+            rule_name.innerText += " ";
             break;
         case "rule_description":
             rule_description.innerText = rule_description.innerText.slice(0, rule_description.innerText.length - 1);
+            rule_description.innerText += " ";
             break;
         case "occurences":
             occurences.innerText = occurences.innerText.slice(0, occurences.innerText.length - 1);
+            occurences.innerText += " ";
             break;
     }
 
@@ -162,7 +171,15 @@ function orderSummaryTable(order) {
             break;
     }
 
-    populateSummaryTable(null);
+    populateSummaryTable();
+}
+
+function search() {
+    var query = document.getElementById("query").value;
+
+    sessionStorage.setItem("search", query);
+
+    populateSummaryTable();
 }
 
 async function populateLineChart() {
