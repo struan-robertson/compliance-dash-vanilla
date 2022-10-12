@@ -28,7 +28,7 @@ $(document).ready(function() {
             labels: ["Compliant", "Non-Compliant"],
             datasets: [{
                 data: [complianceArray.Compliant, complianceArray.NonCompliant],
-                backgroundColor: ["rgba(0, 139, 139, 0)", "rgba(196, 77, 86, 1)", "rgba(239, 239, 240, 1)"]
+                backgroundColor: ["rgb(0, 139, 139)", "rgba(196, 77, 86, 1)", "rgba(239, 239, 240, 1)"]
             }]
         },
         options: {
