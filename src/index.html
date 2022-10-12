@@ -105,13 +105,13 @@
 			<table id="records">
 				<div>
 					<table>
-						<tr>
-							<th>Rule Id</th>
-							<th>Rule Name</th>
-							<th>Reason why rule is broken</th>
-							<th>No. of Non Compliant Resoures</th>
+						<thead>
+							<th id="complianceTableRuleID" onclick="orderSummaryTable('rule_id')">Rule Id ▼</th>
+							<th id="complianceTableRuleName" onclick="orderSummaryTable('rule_name')">Rule Name</th>
+							<th id="complianceTableRuleDescription" onclick="orderSummaryTable('rule_description')">Reason why rule is broken</th>
+							<th id="complianceTableOccurences" onclick="orderSummaryTable('occurences')">No. of Non Compliant Resoures</th>
 							<!--th>Report</th> -->
-						</tr>
+						</thead>
 						<tbody id="ruleSummary"></tbody>
 					</table>
 

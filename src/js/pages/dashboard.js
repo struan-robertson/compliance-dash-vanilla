@@ -2,9 +2,12 @@ docReady(async function () {
     //ensure we have a valid token before continuing 
     await checkTokenAge();
 
+    sessionStorage.setItem("order", "rule_id");
+    sessionStorage.setItem("direction", "asc");
+
     populateDoughnut();
 
-    populateSummaryTable();
+    populateSummaryTable(null);
 
     populateLineChart();
 });
@@ -37,23 +40,35 @@ async function populateDoughnut() {
 }
 
 
-async function populateSummaryTable() {
+async function populateSummaryTable(search) {
+
+    var order = sessionStorage.getItem("order");
+    var direction = sessionStorage.getItem("direction")
+
+    var url = '/api/complianceSummary?order=' + order + '&direction=' + direction;
+
+    if (search != null) {
+        url += '&search=' + search;
+    }
+
+    console.log(url);
 
     //post required because cannot send body with get requests in xmr for some reason, and sending in url is insecure as logged by server
-    axios.post('/api/complianceSummary', { jwt: window.localStorage.getItem("jwt") })
+    axios.post(url, { jwt: window.localStorage.getItem("jwt") })
         .then(function (response) {
+
             if (response.data.success) {
 
                 let summaryResult = response.data.message[0];
 
                 var summaryTable = document.getElementById('ruleSummary')
 
-                for (var i = 0; i < summaryResult.length; i++) {
-                    var row = `<tr><td>${summaryResult[i].rule_id}</td><td>${summaryResult[i].rule_name}</td><td>${summaryResult[i].rule_description}</td><td>${summaryResult[i].num}</td></tr>`
-                    summaryTable.innerHTML += row
+                //delete old rows
+                summaryTable.innerHTML = "";
 
-                    // var option = `<option value="${summaryResult[i].rule_id}">${summaryResult[i].rule_name}</option>`        
-                    // summaryTable.innerHTML+=option
+                for (var i = 0; i < summaryResult.length; i++) {
+                    var row = `<tr><td>${summaryResult[i].rule_id}</td><td>${summaryResult[i].rule_name}</td><td>${summaryResult[i].rule_description}</td><td>${summaryResult[i].occurences}</td></tr>`
+                    summaryTable.innerHTML += row
                 }
 
 
@@ -62,6 +77,92 @@ async function populateSummaryTable() {
         .catch(function (error) {
             console.log(error);
         });
+}
+
+function orderSummaryTable(order) {
+
+
+    var storedOrder = sessionStorage.getItem("order");
+    var storedDirection = sessionStorage.getItem("direction");
+
+    var rule_id = document.getElementById("complianceTableRuleID");
+    var rule_name = document.getElementById("complianceTableRuleName");
+    var rule_description = document.getElementById("complianceTableRuleDescription");
+    var occurences = document.getElementById("complianceTableOccurences");
+
+    console.log(storedOrder);
+
+    switch (storedOrder) {
+        case "rule_id":
+            rule_id.innerText = rule_id.innerText.slice(0, rule_id.innerText.length - 1);
+            break;
+        case "rule_name":
+            rule_name.innerText = rule_name.innerText.slice(0, rule_name.innerText.length - 1);
+            break;
+        case "rule_description":
+            rule_description.innerText = rule_description.innerText.slice(0, rule_description.innerText.length - 1);
+            break;
+        case "occurences":
+            occurences.innerText = occurences.innerText.slice(0, occurences.innerText.length - 1);
+            break;
+    }
+
+    switch (order) {
+        case "rule_id":
+            if (storedOrder == "rule_id" && storedDirection == "asc") {
+                rule_id.innerText += "▲";
+
+                sessionStorage.setItem("order", "rule_id");
+                sessionStorage.setItem("direction", "desc");
+            } else {
+                rule_id.innerText += "▼";
+
+                sessionStorage.setItem("order", "rule_id");
+                sessionStorage.setItem("direction", "asc");
+            }
+            break;
+        case "rule_name":
+            if (storedOrder == "rule_name" && storedDirection == "asc") {
+                rule_name.innerText += "▲";
+
+                sessionStorage.setItem("order", "rule_name");
+                sessionStorage.setItem("direction", "desc");
+            } else {
+                rule_name.innerText += "▼";
+
+                sessionStorage.setItem("order", "rule_name");
+                sessionStorage.setItem("direction", "asc");
+            }
+            break;
+        case "rule_description":
+            if (storedOrder == "rule_description" && storedDirection == "asc") {
+                rule_description.innerText += "▲";
+
+                sessionStorage.setItem("order", "rule_description");
+                sessionStorage.setItem("direction", "desc");
+            } else {
+                rule_description.innerText += "▼";
+
+                sessionStorage.setItem("order", "rule_description");
+                sessionStorage.setItem("direction", "asc");
+            }
+            break;
+        case "occurences":
+            if (storedOrder == "occurences" && storedDirection == "asc") {
+                occurences.innerText += "▲";
+
+                sessionStorage.setItem("order", "occurences");
+                sessionStorage.setItem("direction", "desc");
+            } else {
+                occurences.innerText += "▼";
+
+                sessionStorage.setItem("order", "occurences");
+                sessionStorage.setItem("direction", "asc");
+            }
+            break;
+    }
+
+    populateSummaryTable(null);
 }
 
 async function populateLineChart() {
@@ -78,8 +179,7 @@ async function populateLineChart() {
 
                 let trendResult = response.data.data;
 
-                for (let i=0; i<trendResult.length; i++)
-                {
+                for (let i = 0; i < trendResult.length; i++) {
                     months.push(trendResult[i].month);
                     complientDataSet.push(trendResult[i].complient);
                     nonCompliantDataSet.push(trendResult[i].non_complient)
@@ -89,9 +189,6 @@ async function populateLineChart() {
         .catch(function (error) {
             console.log(error);
         });
-
-
-    console.log(complientDataSet);
 
     new Chart("lineChart", {
         type: "line",

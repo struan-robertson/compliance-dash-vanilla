@@ -33,10 +33,21 @@ module.exports = async function (context, req, res) {
             return;
         }
 
+        var order = req.query.order;
+        var direction = req.query.direction;
+
+        if (order == null)
+        {
+            order = "rule_id";
+            direction = "asc";
+        }
+
         let pool = await sql.connect(dbConnectionString);
-        let query = 'select A.[rule_id],A.[rule_name], A.[rule_description],B.num from [rule] A '+ 
-        'inner join (select non_compliance.rule_id, count(*) as num from non_compliance group by rule_id) B ' +
-        'on A.[rule_id] = B.rule_id';
+        let query = `SELECT [non_compliance].rule_id, [rule].rule_name, [rule].[rule_description], COUNT(*) as occurences 
+        FROM [non_compliance] INNER JOIN [rule] 
+        ON [non_compliance].rule_id = [rule].rule_id 
+        GROUP BY [non_compliance].[rule_id], [rule].[rule_name], [rule].[rule_description]
+        ORDER BY ` + order + ' ' + direction;
         
         let count = await pool.request()
             .query(query)
