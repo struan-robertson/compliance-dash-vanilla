@@ -15,7 +15,13 @@ module.exports = async function (context, req) {
 
         let passwordQuery = await pool.request()
             .input('username', sql.VarChar(255), username)
-            .query('SELECT [pass], [user_id], [user_role_name], [customer_id] FROM [dbo].[user] INNER JOIN [dbo].[user_role] ON [dbo].[user].[role_id] = [dbo].[user_role].[user_role_id] WHERE [user_name] = @username')
+            .query(`SELECT [pass], [user_id], [user_role_name], [user].[customer_id] , [account_id]
+            FROM [user] 
+            INNER JOIN [user_role] 
+            ON [user].[role_id] = .[user_role].[user_role_id] 
+            INNER JOIN [account]
+            ON [user].[customer_id] = [account].[customer_id]
+            WHERE [user_name] = @username`)
 
         //no account with that username found
         if (passwordQuery.rowsAffected == 0)
@@ -48,6 +54,8 @@ module.exports = async function (context, req) {
 
             var customer_id = passwordQuery.recordset[0].customer_id;
 
+            var account_id = passwordQuery.recordset[0].account_id;
+
             //ensure token is unique to avoid collisions
             while (true)
             {    
@@ -72,9 +80,10 @@ module.exports = async function (context, req) {
                 .query('INSERT INTO [dbo].[tokens] (token, user_id, expires) VALUES (@token, @user_id, @expires)')
 
             var JWTpayload = {
-                "sub": user_id,
-                "role": role,
-                "customer": customer_id
+                sub: user_id,
+                role: role,
+                customer: customer_id,
+                account: account_id
             }
 
             //secret must be set in local.settigns.json

@@ -15,7 +15,7 @@ module.exports = async function (context, req, res) {
 
             var decoded = jwt.verify(token, hmacSecret);
 
-            
+            var account = decoded.account;
         } catch(err) {
             //invalid token
 
@@ -44,8 +44,12 @@ module.exports = async function (context, req, res) {
 
         let pool = await sql.connect(dbConnectionString);
         let query = `SELECT [non_compliance].rule_id, [rule].rule_name, [rule].[rule_description], COUNT(*) as occurences 
-        FROM [non_compliance] INNER JOIN [rule] 
+        FROM [non_compliance] 
+        INNER JOIN [rule] 
         ON [non_compliance].rule_id = [rule].rule_id 
+        INNER JOIN [resource] 
+        ON [non_compliance].resource_id = [resource].resource_id
+        WHERE [resource].account_id = ` + account + `
         GROUP BY [non_compliance].[rule_id], [rule].[rule_name], [rule].[rule_description]
         ORDER BY ` + order + ' ' + direction;
         
