@@ -14,6 +14,8 @@ module.exports = async function (context, req, res) {
          let count = await pool.request()
             .query(query)
         
+
+            
         // const result = await sql.query`select count(*) as count  from [resource]`;
         console.dir('Queried database with query: ' + query)
         console.dir('Result:')

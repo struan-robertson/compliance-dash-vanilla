@@ -206,8 +206,9 @@ async function populateUpcomingTable() {
                 for (var i = 0; i < upcomingResult.length; i++) {
 
                     let reviewDate = new Date(Date.parse(upcomingResult[i].review_date));
+                    
 
-                    var row = `<tr><td>${upcomingResult[i].rule_name}</td><td>${upcomingResult[i].exception_value}</td><td>${upcomingResult[i].justification}</td><td>${reviewDate.toLocaleDateString() + ' ' + reviewDate.toLocaleTimeString()}</td></tr>`
+                    var row = `<tr><td>${upcomingResult[i].rule_name}</td><td>${upcomingResult[i].exception_value}</td><td>${upcomingResult[i].justification}</td><td>${reviewDate.toLocaleDateString() + ' ' + reviewDate.toLocaleTimeString()}</td><td><button class="btn btn-primary " onclick="suspendException(${upcomingResult[i].exception_id})">Suspend Exception</button></td></tr>`
                     upcomingTable.innerHTML += row
                 }
 
@@ -270,4 +271,24 @@ async function populateLineChart() {
             }
         }
     });
+}
+
+function getDate() {
+    var now = Date.now();
+    var today = new Date(now);
+    return today.toISOString(); 
+}
+
+function suspendException(exception_id){
+
+    var action = 'suspend';
+
+    axios.post('/api/suspendException',
+    {
+        jwt: window.localStorage.getItem("jwt"),
+        exception_id:exception_id,
+        action:action
+        
+    })
+
 }
