@@ -1,3 +1,5 @@
+var reviewModal;
+
 docReady(async function () {
     //ensure we have a valid token before continuing 
     await checkTokenAge();
@@ -23,6 +25,8 @@ docReady(async function () {
     populateUpcomingTable();
 
     populateLineChart();
+
+    reviewModal = new bootstrap.Modal(document.getElementById("reviewModal"), {});
 });
 
 async function populateDoughnut() {
@@ -77,7 +81,7 @@ async function populateSummaryTable() {
                 summaryTable.innerHTML = "";
 
                 for (var i = 0; i < summaryResult.length; i++) {
-                    var row = `<tr><td>${summaryResult[i].rule_id}</td><td>${summaryResult[i].rule_name}</td><td>${summaryResult[i].rule_description}</td><td>${summaryResult[i].occurences}</td><td><a href="rule${summaryResult[i].rule_id}.html" class="btn btn-primary ">View More Details</a></td></tr>`
+                    var row = `<tr><td>${summaryResult[i].rule_id}</td><td>${summaryResult[i].rule_name}</td><td>${summaryResult[i].rule_description}</td><td>${summaryResult[i].occurences}</td><td><a href="rule${summaryResult[i].rule_id}.html" class="btn btn-primary">View More Details</a></td></tr>`
                     summaryTable.innerHTML += row
                 }
 
@@ -201,13 +205,11 @@ async function populateUpcomingTable() {
                 //delete old rows
                 upcomingTable.innerHTML = "";
 
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
-                
                 for (var i = 0; i < upcomingResult.length; i++) {
 
                     let reviewDate = new Date(Date.parse(upcomingResult[i].review_date));
 
-                    var row = `<tr><td>${upcomingResult[i].rule_name}</td><td>${upcomingResult[i].exception_value}</td><td>${upcomingResult[i].justification}</td><td>${reviewDate.toLocaleDateString() + ' ' + reviewDate.toLocaleTimeString()}</td></tr>`
+                    var row = `<tr><td>${upcomingResult[i].rule_name}</td><td>${upcomingResult[i].exception_value}</td><td>${upcomingResult[i].justification}</td><td>${reviewDate.toLocaleDateString() + ' ' + reviewDate.toLocaleTimeString()}</td><td><button type="button" class="btn btn-primary" onclick="genModal(` + upcomingResult[i].exception_id + `, '` + upcomingResult[i].rule_name + `', '` + upcomingResult[i].exception_value + `')">Review</button></td></tr>`
                     upcomingTable.innerHTML += row
                 }
 
@@ -270,4 +272,52 @@ async function populateLineChart() {
             }
         }
     });
+}
+
+function genModal(exception_id, rule_name, exception) {
+    //90 days from now
+    var today = new Date();
+
+    today.setDate(today.getDate() + 90);
+
+    var template = `
+        <h4>Rule: ` + rule_name + `</h4>
+        <h5>Exception: ` + exception + `</h5>
+        <form>
+            <input placeholder="Justification" maxlength="255" id="exceptionJustification"></input> <br>
+            <p style="margin-bottom:0px; margin-top:15px;">Review Date:</p>
+            <input type="date" id="date-object" name="review" value="` + today.toISOString().substring(0, 10) + `" min=""></input>
+        </form>
+    `;
+
+    var reviewModalBody = document.getElementById("reviewModalBody");
+    reviewModalBody.innerHTML = template;
+
+    var updateExceptionButton = document.getElementById("updateExceptionButton");
+    updateExceptionButton.onclick = function () { updateException(exception_id) };
+    
+    reviewModal.show();
+
+}
+
+async function updateException(exception_id) {
+    var exceptionJustification = document.getElementById("exceptionJustification").value;
+    var exceptionDate = document.getElementById("date-object").value;
+
+    await axios.post('/api/updateException', {
+        jwt: window.localStorage.getItem("jwt"),
+        exception: exception_id,
+        justification: exceptionJustification,
+        date: exceptionDate + 'T00:00:00.000Z'
+    })
+        .then(function (response) {
+            console.log(response.data);
+            if (response.data.success) {
+                reviewModal.hide();                
+                populateUpcomingTable();
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 }
