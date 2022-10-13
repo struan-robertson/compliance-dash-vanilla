@@ -18,7 +18,9 @@ docReady(async function () {
 
     populateDoughnut();
 
-    populateSummaryTable(null);
+    populateSummaryTable();
+
+    populateUpcomingTable();
 
     populateLineChart();
 });
@@ -180,6 +182,41 @@ function search() {
     sessionStorage.setItem("search", query);
 
     populateSummaryTable();
+}
+
+async function populateUpcomingTable() {
+
+    //post required because cannot send body with get requests in xmr for some reason, and sending in url is insecure as logged by server
+    axios.post('/api/upcomingReview', { jwt: window.localStorage.getItem("jwt") })
+        .then(function (response) {
+
+            console.log(response.data);
+
+            if (response.data.success) {
+
+                let upcomingResult = response.data.data;
+
+                var upcomingTable = document.getElementById('upcomingTable')
+
+                //delete old rows
+                upcomingTable.innerHTML = "";
+
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'};
+                
+                for (var i = 0; i < upcomingResult.length; i++) {
+
+                    let reviewDate = new Date(Date.parse(upcomingResult[i].review_date));
+
+                    var row = `<tr><td>${upcomingResult[i].rule_id}</td><td>${upcomingResult[i].rule_name}</td><td>${upcomingResult[i].exception_value}</td><td>${upcomingResult[i].justification}</td><td>${reviewDate.toLocaleDateString() + ' ' + reviewDate.toLocaleTimeString()}</td></tr>`
+                    upcomingTable.innerHTML += row
+                }
+
+
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 }
 
 async function populateLineChart() {

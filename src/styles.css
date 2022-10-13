@@ -168,6 +168,7 @@ input[type=submit]:hover {
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-right: -15px;
 }
 
 div.a {
@@ -262,6 +263,6 @@ body {
     background: black;
 }
 
-th {
+#complianceTableHead {
     cursor: pointer;
 }

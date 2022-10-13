@@ -48,7 +48,7 @@ module.exports = async function (context, req) {
         {
             var role = passwordQuery.recordset[0].user_role_name;
             
-            var refreshToken = randomstring.generate(255);
+            var refreshToken = randomstring.generate(100);
 
             var user_id = passwordQuery.recordset[0].user_id;
 

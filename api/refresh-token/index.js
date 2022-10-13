@@ -66,7 +66,7 @@ module.exports = async function (context, req) {
             if (collisionQuery.rowsAffected < 1)
                 break;
             
-            newRefreshToken = randomstring.generate(255);
+            newRefreshToken = randomstring.generate(100);
         }
         
         var expires = new Date();
