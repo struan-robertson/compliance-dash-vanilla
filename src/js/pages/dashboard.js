@@ -207,7 +207,7 @@ async function populateUpcomingTable() {
 
                     let reviewDate = new Date(Date.parse(upcomingResult[i].review_date));
 
-                    var row = `<tr><td>${upcomingResult[i].rule_id}</td><td>${upcomingResult[i].rule_name}</td><td>${upcomingResult[i].exception_value}</td><td>${upcomingResult[i].justification}</td><td>${reviewDate.toLocaleDateString() + ' ' + reviewDate.toLocaleTimeString()}</td></tr>`
+                    var row = `<tr><td>${upcomingResult[i].rule_name}</td><td>${upcomingResult[i].exception_value}</td><td>${upcomingResult[i].justification}</td><td>${reviewDate.toLocaleDateString() + ' ' + reviewDate.toLocaleTimeString()}</td></tr>`
                     upcomingTable.innerHTML += row
                 }
 
