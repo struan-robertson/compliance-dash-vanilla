@@ -5,8 +5,10 @@ const dbConnectionString = process.env["TEST_DATABASE_CONNECTION_STRING"];
 const hmacSecret = process.env["HMAC_SECRET"];
 
 module.exports = async function (context, req, res) {
-   
+
     var token = req.body.jwt;
+
+    var customer;
 
     try {
 
@@ -15,9 +17,25 @@ module.exports = async function (context, req, res) {
 
             var decoded = jwt.verify(token, hmacSecret);
 
-            context.log("valid token");
+            customer = decoded.customer;
 
-        } catch(err) {
+            if (customer == null)
+            {
+                context.res = {
+                    // status: 200, /* Defaults to 200 */
+                    mimetype: "application/json",
+                    body: {
+                        success: false,
+                        data: {
+                            message: "invalid token"
+                        }
+                    }
+                };
+
+                return;
+            }
+
+        } catch (err) {
             //invalid token
 
             context.res = {
@@ -30,32 +48,33 @@ module.exports = async function (context, req, res) {
                     }
                 }
             };
+
+            return;
         }
 
-        var rule= req.body.resource;
-        var justification= req.body.justification;
-        var nextReview= req.body.nextReview;
-
-        
         let pool = await sql.connect(dbConnectionString);
-        let statement = "INSERT INTO exception (customer_id, rule_id, last_updated_by, exception_value, justification, review_date, last_updated)"+ 
-         "values (1,"+rule+",1,	'todo','"+justification+"','2022-12-12 16:23:59.759', '2022-09-12 17:25:36.091')";
 
-        let count = await pool.request()
-            .query(statement)
-        
-        
+        let getTrendQuery = await pool.request()
+            .input('customer_id', sql.Int, customer)
+            .query(`SELECT [rule].[rule_id], [rule].rule_name, exception_value, justification, review_date 
+            FROM exception
+            INNER JOIN [rule] 
+            ON [exception].rule_id = [rule].rule_id
+            WHERE review_date < DATEADD(Month, +2, GETDATE()) AND customer_id = @customer_id 
+            ORDER BY review_date`)
+
+        let result = getTrendQuery.recordset;
+
         context.res = {
             // status: 200, /* Defaults to 200 */
             mimetype: "application/json",
             body: {
                 success: true,
-                message: count
+                data: result
             }
         };
 
-    }catch (err)
-    {
+    } catch (err) {
         context.log(err);
         context.res = {
             // status: 200, /* Defaults to 200 */
@@ -66,5 +85,4 @@ module.exports = async function (context, req, res) {
             }
         };
     }
-
 }

@@ -1,33 +1,39 @@
-#records {
+.records {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
-  }
-  
-  #records td, #records th {
+}
+
+.records td,
+.records th {
     border: 1px solid #ddd;
     padding: 8px;
-  }
-  
-  #records tr:nth-child(even){background-color: #f2f2f2;}
-  
-  #records tr:hover {background-color: #ddd;}
-  
-  #records th {
+}
+
+.records tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.records tr:hover {
+    background-color: #ddd;
+}
+
+.records th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
     background-color: #0D5257;
     color: white;
-  }
+}
 
 body {
     background-color: #f0f8ff
 }
 
-.navbar-custom{
+.navbar-custom {
     background-color: #464646;
 }
+
 .flex {
     -webkit-box-flex: 1;
     -ms-flex: 1 1 auto;
@@ -68,7 +74,7 @@ li{
     background: #fff;
     border-width: 0;
     border-radius: .25rem;
-    
+
     margin-bottom: 1.5rem
 }
 
@@ -121,10 +127,104 @@ h4 {
     bottom: 0;
     width: 100%;
     background-color: red;
-    color: white;
+    color: rgb(0, 0, 0);
     text-align: center;
 }
 
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+input[type=text],
+select,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+input[type=submit] {
+    background-color: #04AA;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #45a0;
+}
+
+.container {
+    border-radius: 5px;
+    background-color: #f2f2;
+    padding: 20px;
+
+}
+
+.searchbar {
+    background-color: #4654e100;
+    width: 300px;
+    height: 44px;
+    float: right;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: -15px;
+}
+
+div.a {
+    text-align: center;
+}
+
+body {
+
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+
+}
+
+
+
+.box {
+    width: 300px;
+    padding: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff00;
+    text-align: center;
+}
+
+.company {
+    width: 500px;
+    padding: 30px;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff00;
+    ;
+    text-align: center;
+}
+
+#complianceTableHead {
+    cursor: pointer;
+}
 
 body {font-family: Arial, Helvetica, sans-serif;}
     * {box-sizing: border-box;}
