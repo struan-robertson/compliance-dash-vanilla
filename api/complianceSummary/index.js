@@ -15,6 +15,7 @@ module.exports = async function (context, req, res) {
 
             var decoded = jwt.verify(token, hmacSecret);
 
+            var account = decoded.account;
         } catch(err) {
             //invalid token
 
@@ -28,26 +29,50 @@ module.exports = async function (context, req, res) {
                     }
                 }
             };
+
+            return;
+        }
+
+        var order = req.query.order;
+        var direction = req.query.direction;
+        var search = req.query.search;
+
+        if (order == null)
+        {
+            order = "rule_id";
+            direction = "asc";
+        }
+
+        if (search == null)
+        {
+            search = "";
         }
 
         let pool = await sql.connect(dbConnectionString);
-        let query = 'select A.[rule_id],A.[rule_name], A.[rule_description],B.num from [rule] A '+ 
-        'inner join (select non_compliance.rule_id, count(*) as num from non_compliance group by rule_id) B ' +
-        'on A.[rule_id] = B.rule_id';
+        let query = `SELECT [non_compliance].rule_id, [rule].rule_name, [rule].[rule_description], COUNT(*) as occurences 
+        FROM [non_compliance] 
+        INNER JOIN [rule] 
+        ON [non_compliance].rule_id = [rule].rule_id 
+        INNER JOIN [resource] 
+        ON [non_compliance].resource_id = [resource].resource_id
+        WHERE [resource].account_id = ` + account + ` AND [rule].[rule_name] LIKE '%` + search + `%' 
+        GROUP BY [non_compliance].[rule_id], [rule].[rule_name], [rule].[rule_description]
+        ORDER BY ` + order + ' ' + direction;
         
+        context.log(query);
+
         let count = await pool.request()
             .query(query)
         
+        let result = count.recordsets;
+        
         // const result = await sql.query`select count(*) as count  from [resource]`;
-        console.dir('Queried database with query: ' + query)
-        console.dir('Result:')
-        console.dir(count)
         context.res = {
             // status: 200, /* Defaults to 200 */
             mimetype: "application/json",
             body: {
                 success: true,
-                message: count
+                message: result
             }
         };
 
