@@ -88,7 +88,7 @@ async function checkTokenAge() {
                 } else 
                 {
                     localStorage.removeItem("jwt");
-                    window.location.pathname('/login.html');
+                    window.location.href = "login.html";
                 }
             })
     }
