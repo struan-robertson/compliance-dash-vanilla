@@ -32,22 +32,39 @@ module.exports = async function (context, req, res) {
             };
         }
 
-        var rule= req.body.resource;
+        var resource= req.body.resource;
+        var rule = req.body.rule;
         var justification= req.body.justification;
         var nextReview= req.body.nextReview;
+        var action = req.body.action;
+        var now = Date.now();
+        var today = new Date(now).toISOString();
 
         console.log(nextReview);
         
+        // INSERT INTO Exception TABLE
         let pool = await sql.connect(dbConnectionString);
-        let statement = "INSERT INTO exception (customer_id, rule_id, last_updated_by, exception_value, justification, review_date, last_updated)"+ 
-         "values (1,"+rule+",1,	'todo','"+justification+"','2022-12-12 16:23:59.759', '2022-09-12 17:25:36.091')";
+        let exceptionStatement = "INSERT INTO exception (customer_id, rule_id, last_updated_by, exception_value, justification, review_date, last_updated)"+ 
+         "values (1,"+rule+",1,	'"+resource+"','"+justification+"','"+nextReview+"', '"+today+"')";
+         console.dir('Queried database with query: ' + exceptionStatement)
 
-        let count = await pool.request()
-            .query(statement)
         
+         let count = await pool.request()
+            .query(exceptionStatement)
+        
+        // INSERT INTO ExceptionAudit TABLE
+        // todo: exception ID, date values, rule ID
+        let exceptionAuditStatement = "INSERT INTO exception_audit (exception_id, user_id, customer_id, rule_id, [action], old_exception_value, new_exception_value, old_justification, new_justification, old_review_date, new_review_date) "+ 
+         "values (13, 1,1, "+rule+", '"+action+"', 'n/a', '"+resource+"', 'n/a', '"+justification+"','"+nextReview+"','"+nextReview+"')";
+        
+        console.dir('Queried database with query: ' + exceptionAuditStatement)
+
+        count = await pool.request()
+            .query(exceptionAuditStatement)
+        
+   
         
         // const result = await sql.query`select count(*) as count  from [resource]`;
-        console.dir('Queried database with query: ' + statement)
         console.dir('Result:')
         console.dir(count)
         context.res = {
