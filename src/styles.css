@@ -33,6 +33,9 @@ body {
     -ms-flex: 1 1 auto;
     flex: 1 1 auto
 }
+.legend > li:nth-of-type(3) {
+    color: red;
+  }
 
 @media (max-width:991.98px) {
     .padding {
