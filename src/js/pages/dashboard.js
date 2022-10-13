@@ -265,12 +265,12 @@ async function populateLineChart() {
         data: {
             labels: months,
             datasets: [{
-                label: 'Complient Resources',
+                label: 'Compliant Resources',
                 data: complientDataSet,
                 borderColor: "rgba(46, 204, 113, 1)",
                 fill: false
             }, {
-                label: 'Non-Complient Resources',
+                label: 'Non-Compliant Resources',
                 data: nonCompliantDataSet,
                 borderColor: "rgba(196, 77, 86, 1)",
                 fill: false
