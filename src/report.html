@@ -9,7 +9,7 @@
     <script type="text/javascript" src="js/query.js"></script>
      <script type="text/javascript" src="js/post.js"></script>
     <script src="js/pages/dashboard.js"></script>
-    <style><style>
+    <style>
       .collapsible {
                background-color: #777;
                color: white;
@@ -106,7 +106,7 @@
   	<title>Report</title>
 
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <link href="styles.css" rel="stylesheet" />
     <style>
       .collapsible {
@@ -169,11 +169,7 @@
  <p>Click each rule for more information about Compliant and Non-Compliant resources:</p>
 <button class="collapsible">Rule 1: ebs-detect-unencrypted-volume</button>
 <div class="content">
-
-   
-
-    <table id="compliant1">
-      <table id="records">
+      <table class="table records">
         <thead>
           <tr>
             <th scope="col">Resource ID</th>
@@ -182,8 +178,6 @@
             <th scope="col">Compliance Status</th>
             <th scope="col">Create Exception</th>
            
-            
-  
           </tr>
         </thead>
         <tbody id="compliantSummary1"></tbody>
@@ -225,7 +219,7 @@
 <div class="content">
  
 
-    <table id="records">
+    <table class="table records">
       <thead>
         <tr>
           <th scope="col">Resource ID</th>
@@ -278,7 +272,7 @@
   
 
   
-    <table id="records">
+    <table class="table records">
       <thead>
         <tr>
           <th scope="col">Resource ID</th>
@@ -331,7 +325,7 @@
   
 
 
-    <table id="records">
+    <table class="table records">
       <thead>
         <tr>
           <th scope="col">Resource ID</th>
@@ -383,7 +377,7 @@
  
 
 
-    <table id="records">
+    <table class="table records">
       <thead>
         <tr>
           <th scope="col">Resource ID</th>
@@ -404,7 +398,7 @@
  
 
  
-    <table id="records">
+    <table class="table records">
       <thead>
         <tr>
           <th scope="col">Resource ID</th>
@@ -452,11 +446,11 @@
 </div>
 <button class="collapsible">Rule 7: rds-detect-unencrypted-instances</button>
 <div class="content">
-  <table id="records">
+  <table class="table records">
  
 
  
-    <table id="records">
+    <table class="table records">
       <thead>
         <tr>
           <th scope="col">Resource ID</th>
@@ -508,7 +502,7 @@
 
 
 
-    <table id="records">
+    <table class="table records">
       <thead>
         <tr>
           <th scope="col">Resource ID</th>
