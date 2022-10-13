@@ -7,8 +7,11 @@ const hmacSecret = process.env["HMAC_SECRET"];
 module.exports = async function (context, req, res) {
 
     var token = req.body.jwt;
+    var exception = req.body.exception;
+    var justification = req.body.justification;
+    var reviewDateString = req.body.date;
 
-    var customer;
+    var user;
 
     try {
 
@@ -17,9 +20,11 @@ module.exports = async function (context, req, res) {
 
             var decoded = jwt.verify(token, hmacSecret);
 
-            customer = decoded.customer;
+            var role = decoded.role;
 
-            if (customer == null)
+            user = decoded.sub;
+
+            if (role != "auditor")
             {
                 context.res = {
                     // status: 200, /* Defaults to 200 */
@@ -27,7 +32,7 @@ module.exports = async function (context, req, res) {
                     body: {
                         success: false,
                         data: {
-                            message: "invalid token"
+                            message: "incorrect privilages"
                         }
                     }
                 };
@@ -54,23 +59,25 @@ module.exports = async function (context, req, res) {
 
         let pool = await sql.connect(dbConnectionString);
 
-        let getTrendQuery = await pool.request()
-            .input('customer_id', sql.Int, customer)
-            .query(`SELECT exception_id, [rule].rule_name, exception_value, justification, review_date 
-            FROM exception
-            INNER JOIN [rule] 
-            ON [exception].rule_id = [rule].rule_id
-            WHERE review_date < DATEADD(Month, +2, GETDATE()) AND customer_id = @customer_id 
-            ORDER BY review_date`)
+        var today = new Date();
+        today.setDate(today.getDate());
 
-        let result = getTrendQuery.recordset;
+        var reviewDate = Date.parse(reviewDateString);
+
+        let storeTokenQuery = pool.request()
+                .input('justification', sql.VarChar(255), justification)
+                .input('review_date', sql.DateTime, reviewDateString)
+                .input('last_updated', sql.DateTime, today)
+                .input('last_updated_by', sql.Int, user)
+                .input('exception_id', sql.Int, exception)
+                .query('UPDATE exception SET justification=@justification, review_date=@review_date, last_updated=@last_updated, last_updated_by=@last_updated_by WHERE exception_id=@exception_id')
 
         context.res = {
             // status: 200, /* Defaults to 200 */
             mimetype: "application/json",
             body: {
                 success: true,
-                data: result
+                data: storeTokenQuery.rowsAffected
             }
         };
 
