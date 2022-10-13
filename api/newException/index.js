@@ -40,7 +40,6 @@ module.exports = async function (context, req, res) {
         var now = Date.now();
         var today = new Date(now).toISOString();
 
-        console.log(nextReview);
         
         // INSERT INTO Exception TABLE
         let pool = await sql.connect(dbConnectionString);
@@ -63,10 +62,6 @@ module.exports = async function (context, req, res) {
             .query(exceptionAuditStatement)
         
    
-        
-        // const result = await sql.query`select count(*) as count  from [resource]`;
-        console.dir('Result:')
-        console.dir(count)
         context.res = {
             // status: 200, /* Defaults to 200 */
             mimetype: "application/json",

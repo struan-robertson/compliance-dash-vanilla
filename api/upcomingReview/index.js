@@ -8,14 +8,34 @@ module.exports = async function (context, req, res) {
 
     var token = req.body.jwt;
 
-    try     {
+    var customer;
+
+    try {
 
         //verify JWT token
         try {
 
             var decoded = jwt.verify(token, hmacSecret);
 
-        } catch(err) {
+            customer = decoded.customer;
+
+            if (customer == null)
+            {
+                context.res = {
+                    // status: 200, /* Defaults to 200 */
+                    mimetype: "application/json",
+                    body: {
+                        success: false,
+                        data: {
+                            message: "invalid token"
+                        }
+                    }
+                };
+
+                return;
+            }
+
+        } catch (err) {
             //invalid token
 
             context.res = {
@@ -33,24 +53,28 @@ module.exports = async function (context, req, res) {
         }
 
         let pool = await sql.connect(dbConnectionString);
-        let query = 'select (select count(resource_id) from resource) - (select count(resource_id) from non_compliance) as Compliant, (select count(resource_id) from non_compliance) as NonCompliant, (select count(resource_id) from [resource] )as total'
-        
-        let count = await pool.request()
-            .query(query)
 
-        var result = count.recordset[0];
+        let getTrendQuery = await pool.request()
+            .input('customer_id', sql.Int, customer)
+            .query(`SELECT [rule].[rule_id], [rule].rule_name, exception_value, justification, review_date 
+            FROM exception
+            INNER JOIN [rule] 
+            ON [exception].rule_id = [rule].rule_id
+            WHERE review_date < DATEADD(Month, +2, GETDATE()) AND customer_id = @customer_id 
+            ORDER BY review_date`)
+
+        let result = getTrendQuery.recordset;
 
         context.res = {
             // status: 200, /* Defaults to 200 */
             mimetype: "application/json",
             body: {
                 success: true,
-                message: result
+                data: result
             }
         };
 
-    }catch (err)
-    {
+    } catch (err) {
         context.log(err);
         context.res = {
             // status: 200, /* Defaults to 200 */
@@ -61,6 +85,4 @@ module.exports = async function (context, req, res) {
             }
         };
     }
-       
-
 }
