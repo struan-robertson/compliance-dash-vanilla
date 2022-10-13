@@ -77,7 +77,7 @@ async function populateSummaryTable() {
                 summaryTable.innerHTML = "";
 
                 for (var i = 0; i < summaryResult.length; i++) {
-                    var row = `<tr><td>${summaryResult[i].rule_id}</td><td>${summaryResult[i].rule_name}</td><td>${summaryResult[i].rule_description}</td><td>${summaryResult[i].occurences}</td></tr>`
+                    var row = `<tr><td>${summaryResult[i].rule_id}</td><td>${summaryResult[i].rule_name}</td><td>${summaryResult[i].rule_description}</td><td>${summaryResult[i].occurences}</td><td><a href="rule${summaryResult[i].rule_id}.html" class="btn btn-primary ">View More Details</a></td></tr>`
                     summaryTable.innerHTML += row
                 }
 
