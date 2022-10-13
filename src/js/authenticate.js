@@ -84,10 +84,11 @@ async function checkTokenAge() {
 
                 if (data.success) {
                     localStorage.setItem("jwt", data.data.idToken);
+                    
                 } else 
                 {
                     localStorage.removeItem("jwt");
-                    window.location('/login.html');
+                    window.location.pathname('/login.html');
                 }
             })
     }
