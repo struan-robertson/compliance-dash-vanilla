@@ -1,4 +1,4 @@
-function insertNewException() {
+function insertNewException2() {
     var resource = document.getElementById("non_compliant").value;
     var justification =  document.getElementById("justification").value;
     var nextReview = document.querySelector('input[name="review"]:checked').value;
