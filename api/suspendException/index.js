@@ -19,7 +19,7 @@ module.exports = async function (context, req, res) {
 
             var role = decoded.role;
 
-            if (role != "auditor")
+            if (role != "manager")
             {
                 context.res = {
                     // status: 200, /* Defaults to 200 */

@@ -100,14 +100,12 @@ module.exports = async function (context, req) {
             },
             cookies: [ 
                 {
-                    //TODO: restore security cookies in production
                     name: "refresh",
                     value: newRefreshToken,
                     expires: expires,
-                    //secure: true,
+                    secure: true,
                     httpOnly: true,
-                    //sameSite: "Strict",
-                    //path: "/api/refresh-token"
+                    sameSite: "Strict"
                 }
             ]
         };

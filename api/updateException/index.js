@@ -24,7 +24,7 @@ module.exports = async function (context, req, res) {
 
             user = decoded.sub;
 
-            if (role != "auditor")
+            if (role != "manager")
             {
                 context.res = {
                     // status: 200, /* Defaults to 200 */

@@ -25,7 +25,7 @@ docReady(async function () {
     let upcomingTableExceptions = document.getElementById("upcomingTableExceptions");
     let suspendException = document.getElementById("suspendException");
 
-    if (privilage() == 'auditor')
+    if (privilage() == 'manager')
     {
         upcomingTableExceptions.style.display = "table-cell";
         suspendException.style.display = "table-cell"
@@ -221,7 +221,7 @@ async function populateUpcomingTable() {
 
                     var row = `<tr><td>${upcomingResult[i].rule_name}</td><td>${upcomingResult[i].exception_value}</td><td>${upcomingResult[i].justification}</td><td>${reviewDate.toLocaleDateString() + ' ' + reviewDate.toLocaleTimeString()}</td></tr>`
 
-                    if (privilage() == 'auditor')
+                    if (privilage() == 'manager')
                     {
                         row = row.slice(0, row.length - 5);
                         row += `<td><button type="button" class="btn btn-primary" onclick="genModal(` + upcomingResult[i].exception_id + `, '` + upcomingResult[i].rule_name + `', '` + upcomingResult[i].exception_value + `')">Review</button></td>`

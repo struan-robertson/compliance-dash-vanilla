@@ -17,6 +17,22 @@ module.exports = async function (context, req, res) {
 
             context.log("valid token");
 
+            if (role != "manager")
+            {
+                context.res = {
+                    // status: 200, /* Defaults to 200 */
+                    mimetype: "application/json",
+                    body: {
+                        success: false,
+                        data: {
+                            message: "incorrect privilages"
+                        }
+                    }
+                };
+
+                return;
+            }
+
         } catch(err) {
             //invalid token
 
