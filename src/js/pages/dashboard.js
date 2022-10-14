@@ -347,7 +347,7 @@ function getDate() {
     return today.toISOString(); 
 }
 
-function suspendException(exception_id){
+async function suspendException(exception_id){
 
     var action = 'suspend';
 
@@ -358,5 +358,7 @@ function suspendException(exception_id){
         action:action
         
     })
+
+    populateUpcomingTable();
 
 }
