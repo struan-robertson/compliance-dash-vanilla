@@ -8,7 +8,7 @@
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
 		crossorigin="anonymous">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+		crossorigin="anonymous">
 	<link href="styles.css" rel="stylesheet" />
 
 </head>
@@ -21,7 +21,6 @@
 	<script type="text/javascript" src="js/post.js"></script>
 	<script src="js/pages/dashboard.js"></script>
 
-
 	<!-- start of Navbar-->
 	<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
 		<div class="container-fluid">
@@ -32,7 +31,7 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">>>>>>> b3ca1ff52e1b9e877fd537e4b304de4be91e7622
 					<li class="nav-item">
 						<a class="nav-link active" aria-current="page" href="#">Compliance Dashboard</a>
 					</li>
@@ -94,9 +93,10 @@
 			</div>
 			<div class="col-lg-6 my-auto">
 				<form class="searchbar">
-					<input id="query" placeholder="Search" aria-label="Search through site content">
+					<input id="query" placeholder="Search rule name" aria-label="Search through site content">
 					<input type="button" name="" value="Search" onclick="search()">
 				</form>
+
 
 			</div>
 		</div>
@@ -106,9 +106,12 @@
 				<table class="table">
 					<thead id="complianceTableHead">
 						<th id="complianceTableRuleID" scope="col" onclick="orderSummaryTable('rule_id')">Rule Id ▼</th>
-						<th id="complianceTableRuleName" scope="col" onclick="orderSummaryTable('rule_name')">Rule Name </th>
-						<th id="complianceTableRuleDescription" scope="col" onclick="orderSummaryTable('rule_description')">Reason why rule is broken </th>
-						<th id="complianceTableOccurences" scope="col" onclick="orderSummaryTable('occurences')">No. of Non Compliant Resoures </th>
+						<th id="complianceTableRuleName" scope="col" onclick="orderSummaryTable('rule_name')">Rule Name
+						</th>
+						<th id="complianceTableRuleDescription" scope="col"
+							onclick="orderSummaryTable('rule_description')">Reason why rule is broken </th>
+						<th id="complianceTableOccurences" scope="col" onclick="orderSummaryTable('occurences')">No. of
+							Non Compliant Resoures </th>
 						<th scope="col">Compliance Report Link</th>
 					</thead>
 					<tbody id="ruleSummary"></tbody>
@@ -125,16 +128,39 @@
 		<div class="row">
 			<div class="col-lg-12 records">
 				<table class="table">
-					<thead>
+					<thead id="upcomingTableHead">
 						<!-- <th id="upcomingTableRuleID" scope="col">Rule Id</th> -->
 						<th id="upcomingTableRuleName" scope="col">Rule</th>
 						<th id="upcomingTableException" scope="col">Exception</th>
 						<th id="upcomingTableJustification" scope="col">Justification</th>
 						<th id="upcomingTableReviewDate" scope="col">Review Date</th>
-            <th id="suspendException" scope="col">Suspend Exception</th>
+						<th scope="col" id="upcomingTableExceptions" style="display: none;">Review Exception</th>
+						<th id="suspendException" scope="col">Suspend Exception</th>
 					</thead>
 					<tbody id="upcomingTable"></tbody>
 				</table>
+			</div>
+		</div>
+
+
+		<div id="reviewModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Review Exception"
+			aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Review Exception</h5>
+						<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body" id="reviewModalBody">
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-primary" id="updateExceptionButton">Update Exception</button>
+					</div>
+				</div>
 			</div>
 		</div>
 

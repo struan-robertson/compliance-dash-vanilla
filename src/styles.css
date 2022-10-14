@@ -50,12 +50,12 @@ body {
 
 .legend>li:nth-of-type(3) {
     color: rgba(0, 0, 0, 1);
-}
+  } 
 
-li {
+li{
     float: left;
     margin: 0 20px;
-}
+  }
 
 @media (max-width:991.98px) {
     .padding {

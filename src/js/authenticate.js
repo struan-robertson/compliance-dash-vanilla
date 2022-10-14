@@ -88,8 +88,20 @@ async function checkTokenAge() {
                 } else 
                 {
                     localStorage.removeItem("jwt");
-                    window.location.pathname('/login.html');
+                    window.location.href = "login.html";
                 }
             })
     }
+}
+
+function privilage() {
+    var jwt = localStorage.getItem("jwt");
+
+    var payload = jwt.split(".")[1];
+
+    var decoded = atob(payload);
+
+    var role = JSON.parse(decoded).role;
+
+    return role;
 }
