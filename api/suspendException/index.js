@@ -17,6 +17,24 @@ module.exports = async function (context, req, res) {
 
             context.log("valid token");
 
+            var role = decoded.role;
+
+            if (role != "auditor")
+            {
+                context.res = {
+                    // status: 200, /* Defaults to 200 */
+                    mimetype: "application/json",
+                    body: {
+                        success: false,
+                        data: {
+                            message: "incorrect privilages"
+                        }
+                    }
+                };
+
+                return;
+            }
+
         } catch(err) {
             //invalid token
 
@@ -33,7 +51,7 @@ module.exports = async function (context, req, res) {
         }
         let pool = await sql.connect(dbConnectionString);
 
-         var exception_id = req.body.exception_id;
+        var exception_id = req.body.exception_id;
         var action = req.body.action;
         var now = Date.now();
         var today = new Date(now).toISOString();
