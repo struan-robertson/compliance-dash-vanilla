@@ -56,7 +56,7 @@ module.exports = async function (context, req, res) {
 
         let getTrendQuery = await pool.request()
             .input('customer_id', sql.Int, customer)
-            .query(`SELECT exception_id, [rule].rule_name, exception_value, justification, review_date 
+            .query(`SELECT [rule].[rule_id], [rule].rule_name, exception_id, exception_value, justification, review_date 
             FROM exception
             INNER JOIN [rule] 
             ON [exception].rule_id = [rule].rule_id

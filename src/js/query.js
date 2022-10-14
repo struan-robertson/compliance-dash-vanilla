@@ -311,7 +311,7 @@ function buildRuleReportSummaryTable(array, ruleNum){
         element+= ruleNum
         if (array[i].rule_id == ruleNum) {
             var summaryTable = document.getElementById(element)
-            var row = `<tr><td>${array[i].resource_id}</td><td>${array[i].resource_name}</td><td>${array[i].last_updated}</td><td>Non-Compliant</td><td> <button class="open-button" onclick="openForm(${array[i].resource_id},${array[i].rule_id},)">Create new exception</button></td></tr>`
+            var row = `<tr><td>${array[i].resource_id}</td><td>${array[i].resource_name}</td><td>${array[i].last_updated}</td><td>Non-Compliant</td><td> <button class="btn btn-primary" onclick="openForm(${array[i].resource_id},${array[i].rule_id},)">Create new exception</button></td></tr>`
             summaryTable.innerHTML+=row
         }
         
@@ -363,6 +363,7 @@ function buildCompliantRuleReportSummaryTable(array, ruleNum){
         }
     }
 }
+
 
 function insertNewException() {
     var resource = document.getElementById("resource_id").innerHTML;
@@ -483,7 +484,7 @@ function buildRuleReportSummaryTable(array, ruleNum){
         element+= ruleNum
         if (array[i].rule_id == ruleNum) {
             var summaryTable = document.getElementById(element)
-            var row = `<tr><td>${array[i].resource_id}</td><td>${array[i].resource_name}</td><td>${array[i].last_updated}</td><td>Non-Compliant</td><td> <button class="open-button" onclick="openForm(${array[i].resource_id},${array[i].rule_id},)">Create new exception</button></td></tr>`
+            var row = `<tr><td>${array[i].resource_id}</td><td>${array[i].resource_name}</td><td>${array[i].last_updated}</td><td>Non-Compliant</td><td> <button class=" btn btn-primary" onclick="openForm(${array[i].resource_id},${array[i].rule_id},)">Create new exception</button></td></tr>`
             summaryTable.innerHTML+=row
         }
         

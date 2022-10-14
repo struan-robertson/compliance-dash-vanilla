@@ -51,11 +51,11 @@
     </div>
   </nav>
 
-  <main>
-
-    <table class="records">
-      <thead>
-        <tr>
+    <main>
+      <div class ="records" id="records">
+        <table id="records">
+          <thead>
+            <tr>
           <th scope="col">Exception Audit ID</th>
           <th scope="col">Exception ID</th>
           <th scope="col">Rule ID</th>
@@ -65,7 +65,7 @@
           <th scope="col">New Review Date</th>
 
 
-        </tr>
+         </tr>
       </thead>
       <tbody id="auditSummary"></tbody>
     </table>
@@ -80,8 +80,7 @@
 
 </body>
 <script>window.onload = getAuditSummary()</script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script>
   $('.table-responsive').on('show.bs.dropdown', function () {
     $('.table-responsive').css("overflow", "inherit");

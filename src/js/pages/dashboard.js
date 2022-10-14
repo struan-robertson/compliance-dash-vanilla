@@ -23,10 +23,12 @@ docReady(async function () {
     populateSummaryTable();
 
     let upcomingTableExceptions = document.getElementById("upcomingTableExceptions");
+    let suspendException = document.getElementById("suspendException");
 
     if (privilage() == 'auditor')
     {
         upcomingTableExceptions.style.display = "table-cell";
+        suspendException.style.display = "table-cell"
     }
 
     populateUpcomingTable();
@@ -215,13 +217,15 @@ async function populateUpcomingTable() {
                 for (var i = 0; i < upcomingResult.length; i++) {
 
                     let reviewDate = new Date(Date.parse(upcomingResult[i].review_date));
+                    
 
                     var row = `<tr><td>${upcomingResult[i].rule_name}</td><td>${upcomingResult[i].exception_value}</td><td>${upcomingResult[i].justification}</td><td>${reviewDate.toLocaleDateString() + ' ' + reviewDate.toLocaleTimeString()}</td></tr>`
 
                     if (privilage() == 'auditor')
                     {
                         row = row.slice(0, row.length - 5);
-                        row += `<td><button type="button" class="btn btn-primary" onclick="genModal(` + upcomingResult[i].exception_id + `, '` + upcomingResult[i].rule_name + `', '` + upcomingResult[i].exception_value + `')">Review</button></td></tr>`
+                        row += `<td><button type="button" class="btn btn-primary" onclick="genModal(` + upcomingResult[i].exception_id + `, '` + upcomingResult[i].rule_name + `', '` + upcomingResult[i].exception_value + `')">Review</button></td>`
+                        row += `<td><button class="btn btn-primary " onclick="suspendException(${upcomingResult[i].exception_id})">Suspend Exception</button></td></tr>`
                     }
 
                     upcomingTable.innerHTML += row
@@ -334,4 +338,25 @@ async function updateException(exception_id) {
         .catch(function (error) {
             console.log(error);
         });
+}
+
+
+function getDate() {
+    var now = Date.now();
+    var today = new Date(now);
+    return today.toISOString(); 
+}
+
+function suspendException(exception_id){
+
+    var action = 'suspend';
+
+    axios.post('/api/suspendException',
+    {
+        jwt: window.localStorage.getItem("jwt"),
+        exception_id:exception_id,
+        action:action
+        
+    })
+
 }
