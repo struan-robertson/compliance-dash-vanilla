@@ -1,4 +1,6 @@
-function insertNewException2() {
+async function insertNewException2() {
+    await checkTokenAge();
+
     var resource = document.getElementById("non_compliant").value;
     var justification =  document.getElementById("justification").value;
     var nextReview = document.querySelector('input[name="review"]:checked').value;

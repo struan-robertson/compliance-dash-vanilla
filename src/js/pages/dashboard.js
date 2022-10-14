@@ -39,6 +39,9 @@ docReady(async function () {
 });
 
 async function populateDoughnut() {
+
+    await checkTokenAge();
+
     axios.post('/api/complianceException', { jwt: window.localStorage.jwt })
         .then(function (response) {
 
@@ -67,6 +70,8 @@ async function populateDoughnut() {
 
 
 async function populateSummaryTable() {
+
+    await checkTokenAge();
 
     var order = sessionStorage.getItem("order");
     var direction = sessionStorage.getItem("direction")
@@ -199,6 +204,8 @@ function search() {
 
 async function populateUpcomingTable() {
 
+    await checkTokenAge();
+
     //post required because cannot send body with get requests in xmr for some reason, and sending in url is insecure as logged by server
     axios.post('/api/upcomingReview', { jwt: window.localStorage.getItem("jwt") })
         .then(function (response) {
@@ -240,6 +247,8 @@ async function populateUpcomingTable() {
 }
 
 async function populateLineChart() {
+
+    await checkTokenAge();
 
     const NUM_MONTHS = 12;
 
@@ -320,6 +329,9 @@ function genModal(exception_id, rule_name, exception) {
 }
 
 async function updateException(exception_id) {
+
+    await checkTokenAge();
+
     var exceptionJustification = document.getElementById("exceptionJustification").value;
     var exceptionDate = document.getElementById("date-object").value;
 
@@ -349,6 +361,8 @@ function getDate() {
 }
 
 async function suspendException(exception_id){
+
+    await checkTokenAge();
 
     var action = 'suspend';
 

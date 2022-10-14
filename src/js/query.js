@@ -1,5 +1,5 @@
-function getAuditSummary() {
-    // tokenExpired();
+async function getAuditSummary() {
+    await checkTokenAge();
 
     //post required because cannot send body with get requests in xmr for some reason, and sending in url is insecure as logged by server
     axios.post('/api/auditHistory', { jwt: window.localStorage.getItem("jwt") })
@@ -12,7 +12,6 @@ function getAuditSummary() {
         {
             console.log('success');            
 
-            //TODO: parse server side so client recieves less info
             console.log(response.data.message.recordset[0]);            
             array = response.data.message.recordset;
         }
@@ -36,8 +35,8 @@ function buildAuditSummaryTable(array){
 
 /* Function calls the api to get data from the database so it can populate the table in the webpage
 */
-function getCompliantReportSummary() {
-    // tokenExpired();
+async function getCompliantReportSummary() {
+    await checkTokenAge();
 
     //post required because cannot send body with get requests in xmr for some reason, and sending in url is insecure as logged by server
     
@@ -52,7 +51,6 @@ function getCompliantReportSummary() {
         {
             console.log('success');            
 
-            //TODO: parse server side so client recieves less info
             console.log(response.data.message.recordset[0]);            
             array = response.data.message.recordset;
         }
@@ -82,8 +80,8 @@ function buildCompliantReportSummaryTable(array){
 
 /* Function calls the api to get data from the database so it can populate the table in the webpage
 */
-function getReportSummary() {
-    // tokenExpired();
+async function getReportSummary() {
+    await checkTokenAge();
 
     //post required because cannot send body with get requests in xmr for some reason, and sending in url is insecure as logged by server
     
@@ -98,7 +96,6 @@ function getReportSummary() {
         {
             console.log('success');            
 
-            //TODO: parse server side so client recieves less info
             console.log(response.data.message.recordset[0]);            
             array = response.data.message.recordset;
         }
@@ -129,8 +126,8 @@ function buildReportSummaryTable(array){
     }
 }
 
-function getAuditSummary() {
-    // tokenExpired();
+async function getAuditSummary() {
+    await checkTokenAge();
 
     //post required because cannot send body with get requests in xmr for some reason, and sending in url is insecure as logged by server
     axios.post('/api/auditHistory', { jwt: window.localStorage.getItem("jwt") })
@@ -143,7 +140,6 @@ function getAuditSummary() {
         {
             console.log('success');            
 
-            //TODO: parse server side so client recieves less info
             console.log(response.data.message.recordset[0]);            
             array = response.data.message.recordset;
         }
@@ -167,8 +163,8 @@ function buildAuditSummaryTable(array){
 
 /* Function calls the api to get data from the database so it can populate the table in the webpage
 */
-function getCompliantReportSummary() {
-    // tokenExpired();
+async function getCompliantReportSummary() {
+    await checkTokenAge();
 
     //post required because cannot send body with get requests in xmr for some reason, and sending in url is insecure as logged by server
     
@@ -183,7 +179,6 @@ function getCompliantReportSummary() {
         {
             console.log('success');            
 
-            //TODO: parse server side so client recieves less info
             console.log(response.data.message.recordset[0]);            
             array = response.data.message.recordset;
         }
@@ -213,8 +208,8 @@ function buildCompliantReportSummaryTable(array){
 
 /* Function calls the api to get data from the database so it can populate the table in the webpage
 */
-function getReportSummary() {
-    // tokenExpired();
+async function getReportSummary() {
+    await checkTokenAge();
 
     //post required because cannot send body with get requests in xmr for some reason, and sending in url is insecure as logged by server
     
@@ -229,7 +224,6 @@ function getReportSummary() {
         {
             console.log('success');            
 
-            //TODO: parse server side so client recieves less info
             console.log(response.data.message.recordset[0]);            
             array = response.data.message.recordset;
         }
@@ -269,8 +263,8 @@ function buildReportSummaryTable(array){
 
 /* Function calls the api to get data from the database so it can populate the table in the webpage
 */
-function getRuleReportSummary(ruleNum) {
-    // tokenExpired();
+async function getRuleReportSummary(ruleNum) {
+    await checkTokenAge();
 
     //post required because cannot send body with get requests in xmr for some reason, and sending in url is insecure as logged by server
     
@@ -285,7 +279,6 @@ function getRuleReportSummary(ruleNum) {
         {
             console.log('success');            
 
-            //TODO: parse server side so client recieves less info
             console.log(response.data.message.recordset[0]);            
             array = response.data.message.recordset;
         }
@@ -318,8 +311,8 @@ function buildRuleReportSummaryTable(array, ruleNum){
     }
 }
 
-function getCompliantRuleReportSummary(ruleNum) {
-    // tokenExpired();
+async function getCompliantRuleReportSummary(ruleNum) {
+    await checkTokenAge();
 
     //post required because cannot send body with get requests in xmr for some reason, and sending in url is insecure as logged by server
     
@@ -334,7 +327,6 @@ function getCompliantRuleReportSummary(ruleNum) {
         {
             console.log('success');            
 
-            //TODO: parse server side so client recieves less info
             console.log(response.data.message.recordset[0]);            
             array = response.data.message.recordset;
         }
@@ -365,7 +357,9 @@ function buildCompliantRuleReportSummaryTable(array, ruleNum){
 }
 
 
-function insertNewException() {
+async function insertNewException() {
+    await checkTokenAge();
+    
     var resource = document.getElementById("resource_id").innerHTML;
 
     var rule = document.getElementById("rule_id").innerHTML;
@@ -442,8 +436,8 @@ function getDate(numMonths) {
 
 /* Function calls the api to get data from the database so it can populate the table in the webpage
 */
-function getRuleReportSummary(ruleNum) {
-    // tokenExpired();
+async function getRuleReportSummary(ruleNum) {
+    await checkTokenAge();
 
     //post required because cannot send body with get requests in xmr for some reason, and sending in url is insecure as logged by server
     
@@ -458,7 +452,6 @@ function getRuleReportSummary(ruleNum) {
         {
             console.log('success');            
 
-            //TODO: parse server side so client recieves less info
             console.log(response.data.message.recordset[0]);            
             array = response.data.message.recordset;
         }
@@ -491,8 +484,8 @@ function buildRuleReportSummaryTable(array, ruleNum){
     }
 }
 
-function getCompliantRuleReportSummary(ruleNum) {
-    // tokenExpired();
+async function getCompliantRuleReportSummary(ruleNum) {
+    await checkTokenAge();
 
     //post required because cannot send body with get requests in xmr for some reason, and sending in url is insecure as logged by server
     
@@ -507,7 +500,6 @@ function getCompliantRuleReportSummary(ruleNum) {
         {
             console.log('success');            
 
-            //TODO: parse server side so client recieves less info
             console.log(response.data.message.recordset[0]);            
             array = response.data.message.recordset;
         }
@@ -537,7 +529,10 @@ function buildCompliantRuleReportSummaryTable(array, ruleNum){
     }
 }
 
-function insertNewException() {
+async function insertNewException() {
+
+    await checkTokenAge();
+
     var resource = document.getElementById("resource_id").innerHTML;
 
     var rule = document.getElementById("rule_id").innerHTML;
