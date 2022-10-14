@@ -287,7 +287,8 @@ async function populateLineChart() {
             title: {
                 display: true,
                 text: 'Trend Line'
-            }
+            },
+            aspectRatio: 1.3
         }
     });
 }
