@@ -17,6 +17,8 @@ module.exports = async function (context, req, res) {
 
             context.log("valid token");
 
+            var role = decoded.role;
+
             if (role != "manager")
             {
                 context.res = {
