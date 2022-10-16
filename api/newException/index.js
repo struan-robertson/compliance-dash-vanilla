@@ -48,6 +48,8 @@ module.exports = async function (context, req, res) {
                     }
                 }
             };
+
+            return;
         }
 
         var resource= req.body.resource;
