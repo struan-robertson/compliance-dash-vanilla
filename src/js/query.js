@@ -281,7 +281,6 @@ async function getRuleReportSummary(ruleNum) {
 
 function buildRuleReportSummaryTable(array, ruleNum) {
 
-
     for (var i = 0; i < array.length; i++) {
         var element = 'compliantSummary'
         //var element = 'ruleSummary'
@@ -289,13 +288,14 @@ function buildRuleReportSummaryTable(array, ruleNum) {
         if (array[i].rule_id == ruleNum) {
             var summaryTable = document.getElementById(element)
             var row = `<tr><td>${array[i].resource_id}</td><td>${array[i].resource_name}</td><td>${array[i].last_updated}</td><td>Non-Compliant</td></tr>`
-            summaryTable.innerHTML += row
 
             if (privilage() == 'manager') {
                 row = row.slice(0, row.length - 5);
                 row += `<td> <button class="btn btn-primary" onclick="openForm(${array[i].resource_id},${array[i].rule_id},)">Create new exception</button></td>`;
 
             }
+
+            summaryTable.innerHTML += row
 
         }
 
@@ -459,7 +459,15 @@ function buildRuleReportSummaryTable(array, ruleNum) {
         element += ruleNum
         if (array[i].rule_id == ruleNum) {
             var summaryTable = document.getElementById(element)
-            var row = `<tr><td>${array[i].resource_id}</td><td>${array[i].resource_name}</td><td>${array[i].last_updated}</td><td>Non-Compliant</td><td> <button class=" btn btn-primary" onclick="openForm(${array[i].resource_id},${array[i].rule_id},)">Create new exception</button></td></tr>`
+
+            var row = `<tr><td>${array[i].resource_id}</td><td>${array[i].resource_name}</td><td>${array[i].last_updated}</td><td>Non-Compliant</td></tr>`
+            
+            if (privilage() == 'manager') {
+                row = row.slice(0, row.length - 5);
+                row += `<td> <button class=" btn btn-primary" onclick="openForm(${array[i].resource_id},${array[i].rule_id},)">Create new exception</button></td></tr>`;
+
+            }
+            
             summaryTable.innerHTML += row
         }
 
@@ -484,7 +492,7 @@ async function getCompliantRuleReportSummary(ruleNum) {
                 array = response.data.message.recordset;
             }
 
-
+            Create  
             buildCompliantRuleReportSummaryTable(array, ruleNum); //calls the buildTableFunction
 
         })
